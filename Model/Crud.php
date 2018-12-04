@@ -13,22 +13,22 @@ Class Crud extends Model{
     public function create($table, $data = array()){
  
         $sql = new Sql();
-     
+        
         $this->setParams($data);
-     
+        // Foreach para fazer cada $value ficar com aspas simples
         foreach ($this->value as $value) {			
             array_unshift($this->values,"'$value'");;
            
         }
 
+        // reverter o array 
         $this->values = array_reverse($this->values);
+
+    
         $columns = implode(",", $this->colunm);
         $values = implode(",", $this->values);
-        $sql->query("INSERT INTO $table ($columns) VALUES ($values)",[
-            ":table" => $table,
-            ":colunms" => $columns,
-            ":values" => $values
-            ]);
+
+        $sql->query("INSERT INTO $table ($columns) VALUES ($values)");
     }
 
     private function setParams($data){
@@ -47,35 +47,27 @@ Class Crud extends Model{
         $results = $sql->select("SELECT $colunms FROM $table WHERE $where");
         return $results;
     }
-    // Não esta fazendo o UPDATE 
+
     public function update($table, $data = array(), $where){
         $sql = new Sql();
         $this->setParams($data);
-     
+        
+        // unindo as colunas com os valores e os valores já com aspas 
         foreach ($data as $colunm => $value) {			
             array_unshift($this->values,$colunm. " = " ."'$value'");
            
         }
+
         $values = implode(",", $this->values);
-        var_dump($values);exit;
-        $sql->query("UPDATE :table SET :values WHERE (:where)",[
-            ":table" => $table,
-            ":values" => $values,
-            ":where" => $where
 
-        ]);
+        $sql->query("UPDATE $table SET $values WHERE ($where)");
     }
-
-    // Não esta fazendo o
+     
     public function delete($table, $where){
 
         $sql = new Sql();
 
-        $sql->query("DELETE FROM :table WHERE :where",[
-            ":table" => $table,
-            ":where" => $where
-        ]
-    );
+        $sql->query("DELETE FROM $table WHERE $where");
 
     }
 
