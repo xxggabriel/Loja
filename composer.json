@@ -1,0 +1,11 @@
+{
+    "name": "xxggabriel/loja",
+    "description": "A virtual store project",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Model\\" : "Model\\",
+            "Controller\\" : "Controller\\"
+        }
+    }
+}
