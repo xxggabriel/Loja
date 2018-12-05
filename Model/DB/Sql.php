@@ -12,11 +12,19 @@ class Sql {
 	public function __construct()
 
 	{
-		$this->conn = new \PDO(
-			"mysql:dbname=".Sql::DBNAME.";host=".Sql::HOSTNAME, 
-			Sql::USERNAME,
-			Sql::PASSWORD
-		);
+		try{
+
+			$this->conn = new \PDO(
+				"mysql:dbname=".Sql::DBNAME.";host=".Sql::HOSTNAME, 
+				Sql::USERNAME,
+				Sql::PASSWORD
+			);
+		} catch(\PDOException $e){
+			echo json_encode([
+				"message" => $e->getMessage(),
+				"code" => $e->getCode()
+			]);
+		}
 	}
 
 	private function setParams($statement, $parameters = array())
