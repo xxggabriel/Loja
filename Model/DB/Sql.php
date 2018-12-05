@@ -22,7 +22,9 @@ class Sql {
 		} catch(\PDOException $e){
 			echo json_encode([
 				"message" => $e->getMessage(),
-				"code" => $e->getCode()
+				"code" => $e->getCode(),
+				"line" => $e->getLine(),
+				"file" => $e->getFile()
 			]);
 		}
 	}
