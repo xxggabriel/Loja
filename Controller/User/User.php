@@ -19,6 +19,7 @@ class User extends Crud {
         $this->setEmail($data["email"]);
         $this->setPhone($data["phone"]);
 
+
         $this->create("tb_user", [
             "name" => $this->getName(),
             "login" => $this->getLogin(),
@@ -27,6 +28,8 @@ class User extends Crud {
             "status" => 1
 
         ]);
+
+
     }
 
     public function selectUser($id_user){   
@@ -91,7 +94,7 @@ class User extends Crud {
 
             $this->name = $name;
         } else {
-            ExceptionsUser::nameNotInformed;
+            ExceptionsUser::nameNotInformed();
         }
 
     }
@@ -101,8 +104,10 @@ class User extends Crud {
         if(!empty($login)){
 
             $this->login = $login;
+
         } else{
-            ExceptionsUser::loginNotInformed;
+            $e = ExceptionsUser::loginNotInformed();
+            $e->getMessage();
         }
 
     }
@@ -121,7 +126,8 @@ class User extends Crud {
     
             }
         } else {
-            ExceptionsUser::emailNotInformed;
+            ExceptionsUser::emailNotInformed();
+
         }
 
     }
