@@ -4,7 +4,7 @@ namespace Model;
 
 use Model\DB\Sql;
 use Model\Model;
-Class Crud extends Model{
+abstract Class Crud extends Model{
 
     private $colunm  = [];
     private $value = [];
@@ -64,12 +64,12 @@ Class Crud extends Model{
     }
      
     public function delete($table, $where){
-
         $sql = new Sql();
 
         $sql->query("UPDATE $table SET status = 0 WHERE $where");
 
     }
+
 
 
 
