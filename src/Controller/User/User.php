@@ -20,7 +20,7 @@ class User extends Crud {
         $this->setPhone($data["phone"]);
 
 
-        $this->create("tb_user", [
+        $result = $this->create("tb_user", [
             "name" => $this->getName(),
             "login" => $this->getLogin(),
             "email" => $this->getEmail(),
@@ -28,6 +28,10 @@ class User extends Crud {
             "status" => 1
 
         ]);
+
+        if(!$result){
+            ExceptionsUser::notCreateUser();
+        }
 
 
     }

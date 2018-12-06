@@ -21,4 +21,8 @@ class ExceptionsUser{
     public static function loginNotInformed(){
         throw new \Exception("login não informado"); 
     }
+
+    public static function notCreateUser(){
+        throw new \Exception("Não foi passivel criar o Usuário");
+    } 
 }
