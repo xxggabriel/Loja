@@ -4,6 +4,7 @@ require "vendor/autoload.php";
 use Model\Crud;
 use Controller\User\User;
 use Controller\User\Profile;
+use Controller\User\PasswordUser;
 use Model\Page;
 
 // $user = new User();
@@ -29,5 +30,10 @@ $profile = new Profile();
 //     "biography" => "Uma biografia simples"
 // ], "7");
 
-$page = new Page();
-$page->setTpl("index");
+$password = new PasswordUser();
+var_dump($password->varifyRecoverPassword("7d3d208e070fdc3be387038166f77bb8d42a91dcd192c538a403b7d8c5c9"));
+// var_dump($password->varifyPassword(8,"admin"));
+
+
+// $page = new Page();
+// $page->setTpl("index");
