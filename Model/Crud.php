@@ -4,7 +4,7 @@ namespace Model;
 
 use Model\DB\Sql;
 use Model\Model;
-abstract Class Crud extends Model{
+abstract Class Crud extends Model implements CrudInterface{
 
     private $colunm  = [];
     private $value = [];
@@ -41,7 +41,7 @@ abstract Class Crud extends Model{
         }
     }
 
-    public function read($table,$colunms, $where = "1 = 1"){
+    public function read($table,$colunms, $where = "1 = 1"):array{
 
         $sql = new Sql();
         $results = $sql->select("SELECT $colunms FROM $table WHERE $where");

@@ -3,19 +3,31 @@
 require "vendor/autoload.php";
 use Model\Crud;
 use Controller\User\User;
-$crud = new Crud();
-$user = new User();
-// $result = $crud->read("tb_product", "*");
-// var_dump($result);
+use Controller\User\Profile;
+use Model\Page;
 
-$data = [
-    "name" => "Olavo De Carvalho",
-    "login" => "olala",
-    "email" => "lavofilho@gmail.com",
-    "phone" => "8546995",
-];
-// var_dump($data);exit;
-// $result = $user->selectUserAll();
-// var_dump($result);
+// $user = new User();
+// $user->createUser([
+//     "name" => "jubileu",
+//     "login" => "123#",
+//     "email" => "",
+//     "phone" => ""
+// ]);
 
-$user->deleteUser(2);
+$profile = new Profile();
+
+// $profile->createProfile([
+//     "id_user" => "7",
+//     "user_name" => "Leila Ferreira",
+//     "photo" => "",
+//     "biography" => "Uma biografia simples"
+// ]);
+
+// $profile->updateProfile([
+//     "user_name" => "Junior",
+//     "photo" => "",
+//     "biography" => "Uma biografia simples"
+// ], "7");
+
+$page = new Page();
+$page->setTpl("index");

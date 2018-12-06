@@ -16,15 +16,15 @@ class Page{
 
     public function __construct($opts = array()){
 
-        $this->options = array_marge($default,$opts);
+        $this->options = array_merge($this->default,$opts);
 
         // config
         $config = array(
-            "tpl_dir"       => $_SERVER["DOCUMENT_ROOT"]."Views",
-            "cache_dir"     => $_SERVER["DOCUMENT_ROOT"]."Views/cache/",
-            "debug"         => true, // set to false to improve the speed
+            "tpl_dir"       => $_SERVER["DOCUMENT_ROOT"]."/Views/",
+            "cache_dir"     => $_SERVER["DOCUMENT_ROOT"]."/Views/cache/",
+            "debug"         => false, // set to false to improve the speed
         );
-
+        
         Tpl::configure( $config );
 
         $this->tpl = new Tpl();
