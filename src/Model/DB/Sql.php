@@ -17,7 +17,8 @@ class Sql {
 			$this->conn = new \PDO(
 				"mysql:dbname=".Sql::DBNAME.";host=".Sql::HOSTNAME, 
 				Sql::USERNAME,
-				Sql::PASSWORD
+				Sql::PASSWORD,
+				array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")
 			);
 		} catch(\PDOException $e){
 			echo json_encode([
@@ -47,7 +48,7 @@ class Sql {
 		// var_dump($rawQuery,$params);exit;
 		$stmt = $this->conn->prepare($rawQuery);
 		$this->setParams($stmt, $params);
-		$stmt->execute();
+		return $stmt->execute();
 	}
 	
 	public function select($rawQuery, $params = array()):array
