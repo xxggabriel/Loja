@@ -28,7 +28,7 @@ abstract Class Crud extends Model implements CrudInterface{
         $columns = implode(",", $this->colunm);
         $values = implode(",", $this->values);
 
-        $sql->query("INSERT INTO $table ($columns) VALUES ($values)");
+        return $sql->query("INSERT INTO $table ($columns) VALUES ($values)");
     }
 
     private function setParams($data){
