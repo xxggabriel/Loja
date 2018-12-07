@@ -26,8 +26,8 @@
                         <li><a href="products.html">Produtos</a></li>
                         <li><a href="contact.html">Contato</a></li>
                         <li>
-                            <a class="waves-effect waves-light btn orange z-depth-1">Login</a>
-                            <a class="waves-effect waves-light btn light-blue accent-2">Cadastra-se</a>
+                            <a href="/login" class="waves-effect waves-light btn orange z-depth-1">Login</a>
+                            <a href="/create" class="waves-effect waves-light btn light-blue accent-2">Cadastra-se</a>
                         </li>            
                       </ul>
       

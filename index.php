@@ -1,39 +1,22 @@
 <?php 
 
 require "vendor/autoload.php";
-use Model\Crud;
-use Controller\User\User;
-use Controller\User\Profile;
-use Controller\User\PasswordUser;
-use Model\Page;
 
-// $user = new User();
-// $user->createUser([
-//     "name" => "jubileu",
-//     "login" => "123#",
-//     "email" => "",
-//     "phone" => ""
-// ]);
+$app = new \Slim\Slim();
 
-$profile = new Profile();
+$app->config('debug', true);
 
-// $profile->createProfile([
-//     "id_user" => "7",
-//     "user_name" => "Leila Ferreira",
-//     "photo" => "",
-//     "biography" => "Uma biografia simples"
-// ]);
+$app->notFound(function(){
+    // Colocar a tamplate de erro 404
+});
 
-// $profile->updateProfile([
-//     "user_name" => "Junior",
-//     "photo" => "",
-//     "biography" => "Uma biografia simples"
-// ], "7");
-
-$password = new PasswordUser();
-var_dump($password->varifyRecoverPassword("7d3d208e070fdc3be387038166f77bb8d42a91dcd192c538a403b7d8c5c9"));
-// var_dump($password->varifyPassword(8,"admin"));
+// Fazendo Require das rotas
+include("Routes/Web.php");
+require_once("Routes/Product.php");
+require_once("Routes/Provider.php");
+require_once("Routes/Sale.php");
+require_once("Routes/User.php");
 
 
-// $page = new Page();
-// $page->setTpl("index");
+
+$app->run();
