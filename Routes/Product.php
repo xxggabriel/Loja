@@ -2,8 +2,8 @@
 
 use Model\Page;
 
-$app->get('/Product', function() {
+$app->get('/products', function() {
     $tpl = new Page();
  
-    $tpl->setTpl("index");
+    $tpl->setTpl("products");
 });

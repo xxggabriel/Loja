@@ -1,21 +1,45 @@
 <?php 
 
 use Model\Page;
+$app->notFound(function(){
+    $page = new Page([
+        "header" => false,
+        "footer" => false
+    ]);
+    $page->setTpl("404");
+});
 
 $app->get('/', function() {
-    $tpl = new Page();
+    $page = new Page();
  
-    $tpl->setTpl("index");
+    $page->setTpl("index");
 });
 
-$app->get('/create', function() {
-    $tpl = new Page();
- 
-    $tpl->setTpl("index");
-});
 
 $app->get('/login', function() {
-    $tpl = new Page();
+    $page = new Page();
  
-    $tpl->setTpl("index");
+    $page->setTpl("login");
+});
+
+$app->post('/login', function() {
+
+    header("Location: /");
+    exit;
+
+});
+
+$app->post('/register', function() {
+
+    header("Location: /");
+    exit;
+
+});
+
+$app->get('/contact', function() {
+
+    $page = new Page();
+ 
+    $page->setTpl("contact");
+
 });
