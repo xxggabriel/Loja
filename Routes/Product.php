@@ -7,8 +7,3 @@ $app->get('/products', function() {
  
     $tpl->setTpl("products");
 });
-$app->get('/product/details', function() {
-    $tpl = new Page();
- 
-    $tpl->setTpl("product-details");
-});
