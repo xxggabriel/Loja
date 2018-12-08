@@ -11,18 +11,18 @@ class ExceptionsUser{
     }
 
     public static function emailNotInformed(){
-        throw new \Exception("Email não informado");    
+        throw new \Exception("Email não informado.");    
     }
 
     public static function nameNotInformed(){
-        throw new \Exception("Nome não informado"); 
+        throw new \Exception("Nome não informado."); 
     }
 
     public static function loginNotInformed(){
-        throw new \Exception("login não informado"); 
+        throw new \Exception("login não informado."); 
     }
 
     public static function notCreateUser(){
-        throw new \Exception("Não foi passivel criar o Usuário");
+        throw new \Exception("Não foi passivel criar o Usuário.");
     } 
 }

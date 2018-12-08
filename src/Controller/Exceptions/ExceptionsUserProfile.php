@@ -6,13 +6,13 @@ class ExceptionsUserProfile{
 
     public static function existingUser(){
 
-        throw new \Exception("Exite usuário com esse mesmo user name, tente usar outro");    
+        throw new \Exception("Exite usuário com esse mesmo user name, tente usar outro.");    
 
     }
 
     public static function notInformedUserName(){
 
-        throw new \Exception("Nome de usuário não informado, favor informe um nome de usuário");    
+        throw new \Exception("Nome de usuário não informado, por favor informe um nome de usuário.");    
 
     }
 
@@ -21,11 +21,11 @@ class ExceptionsUserProfile{
     }
 
     public static function idNonExistent(){
-        throw new \Exception("Id do usuário não exitente");
+        throw new \Exception("Id do usuário não exitente.");
     }
 
     public static function userIdExisting(){
-        throw new \Exception("Usuário já cadastrado");
+        throw new \Exception("Usuário já cadastrado.");
     }
 
 }

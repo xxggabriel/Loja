@@ -6,7 +6,7 @@ class ExceptionsUserPassword{
 
     public  static function idNonExistent(){
 
-        throw new \Exception("O id passado não existe, favor informe um id valido.");
+        throw new \Exception("O id passado não existe, por favor informe um id valido.");
 
     }
 
@@ -19,15 +19,15 @@ class ExceptionsUserPassword{
     }
 
     public static function IdAlreadyRegistered(){
-        throw new \Exception("Esse usuario ja cadastrou a sanha");
+        throw new \Exception("Esse usuario ja cadastrou a sanha.");
     }
 
     public static function invalidToken(){
-        throw new \Exception("Esse token não é valido");
+        throw new \Exception("Esse token não é valido.");
     }
 
     public static function expiredToken(){
-        throw new \Exception("Esse token expirou, favor gere outro token");
+        throw new \Exception("Esse token expirou, por favor gere outro token.");
     }
 
 }
