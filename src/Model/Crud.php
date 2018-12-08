@@ -60,13 +60,16 @@ abstract Class Crud extends Model implements CrudInterface{
 
         $values = implode(",", $this->values);
 
-        $sql->query("UPDATE $table SET $values WHERE $where");
+        $result = $sql->query("UPDATE $table SET $values WHERE $where");
+        return $result;
+         
     }
      
     public function delete($table, $where){
         $sql = new Sql();
 
         $sql->query("UPDATE $table SET status = 0 WHERE $where");
+
 
     }
 
