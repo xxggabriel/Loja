@@ -3,8 +3,8 @@
 namespace Controller\User;
 
 use Model\Crud;
+use Model\Mailer;
 use Controller\Exceptions\ExceptionsUser;
-use Controller\User\PasswordUser;
 class User extends Crud {
 
     private $name;
@@ -12,6 +12,7 @@ class User extends Crud {
     private $password;
     private $email;
     private $phone;
+    private $id_user;
 
     public function createUser($data = array()){
 
@@ -19,14 +20,14 @@ class User extends Crud {
         $this->setName($data["name"]) ;
         $this->setLogin($data["login"]) ;
         $this->setEmail($data["email"]);
-        $this->setPhone($data["phone"]);
+        $this->setPassword($data["password"]);
 
 
         $result = $this->create("tb_user", [
             "name" => $this->getName(),
             "login" => $this->getLogin(),
             "email" => $this->getEmail(),
-            "phone" => $this->getPhone(),
+            "password" => $this->getPassword(),
             "status" => 1
 
         ]);
@@ -38,9 +39,9 @@ class User extends Crud {
 
     }
 
-    public function selectUser($id_user){   
+    public function selectUser($login){   
 
-        return $this->read("tb_user","*","id_user = $id_user");
+        return $this->read("tb_user","*","login = '$login'");
 
 
     }
@@ -63,47 +64,137 @@ class User extends Crud {
 
     }
 
-    private function createSession($login){
-        $this->create("tb_session",[
-            "login" => $login,
-            "session" => "SESSION".date("Y-m-d").$login
-        ]);
+    private function createSession(){
+        $_SESSION["ession_user"] = "SESSION-".$this->getLogin().date("d-m-Y-H:i");
+        $_SESSION["email_user"] = $this->getEmail();
+        $_SESSION["name_user"] = $this->getName();
+        $_SESSION["id_user"] =$this->getId_user();
     }
 
     public function loginUser($data = array()){
 
         $this->setLogin($data["login"]);
         $this->setPassword($data["password"]);
-
         $this->createSession($this->getLogin());
+
+        // Recebendo Login
+        $login = $data["login"];
+        // Selecionando todas as colunas da tabela tb_user
+        $user = $this->read("tb_user", "*", "login = '$login'");
+        if(!$user == []){
+
+            $this->setEmail($user[0]["email"]);
+            $this->setName($user[0]["name"]);
+            $this->setId_user($user[0]["id_user"]);
+            // Criando sessão
+            $this->createSession();
+        } else {
+            ExceptionsUser::loginNotInformed();
+        }
+    }
+
+    public function registerUser($data = array()){
+        
+       
+        $this->setEmail($data["email"]);
+        $this->setName($data["name"]);
+        $this->setLogin($data["login"]);     
+        $this->setPassword($data["password"]);
+        // Criando User
+        $this->createUser([
+            "name" => $this->getName(),
+            "login" => $this->getLogin(),
+            "password" => $this->getPassword(),
+            "email" => $this->getEmail()
+        ]);
+           
+        // Criando a sessão do usuario
+        $this->createSession();
     }
 
 
-    // GETs
-    public function getName(){
 
-        return $this->name;
+
+    public function recoverPassword($id_user){
+        // Exite algum token para esse usuario dentro de 1 hora
+        $result = $this->read("tb_recover_password_user","*", "id_user = '$id_user'");
+        
+        if(!$result == []){
+
+            $token = bin2hex(random_bytes(50));
+
+            $this->update("tb_recover_password_user",[
+                "token" => $token,
+                "date" => date("Y-m-d H:i:s"),
+            ], "id_user = '$id_user'");
+
+        } else{
+            
+            $token = bin2hex(random_bytes(50));
+    
+            $this->create("tb_recover_password_user",[
+                "id_user" => $id_user,
+                "token" => $token
+            ]);
+    
+            $link = "http://localhost:8888/recuperar/?token=$token";
+            $message = "O link para redefinir sua senha:";
+            $result = $this->read("tb_user", "email,name", "id_user = '$id_user'");
+            $email = $result[0]["email"];
+            $name = $result[0]["name"];
+            
+            $mailer = new Mailer($email, $name,"Redefinir Senha","rest-password",["message" => $message, "link"=> $link]);
+            $mailer->send();
+        }
 
     }
 
-    public function getLogin(){
+    public function varifyRecoverPassword($token){
+        // Varificar se exite um token valido
+        $result = $this->read("tb_recover_password_user","*", "token = '$token'");
+        if(!$result == []){
+            $result = $result[0];
 
-        return $this->login;
+            // Varificar se o status
+            if($result["status"] > 0){    
+                // Varifica se foi criando dentro de 1 hora
+                $date = date('Y-m-d H:i:s', strtotime('-1 hour'));        
+                if($result["date"] > $date) {
+                    return true;
+                } else {
+                   ExceptionsUser::expiredToken();
+                }
+            } else{
+                ExceptionsUser::invalidToken();
+            }
+        } else {
+            ExceptionsUser::invalidToken();
+        }
 
     }
 
-    public function getEmail(){
+    public function varifyPassword($id_user,$password){
 
-        return $this->email;
+        $hash = $this->read("tb_password_user", "password", "id_user = '$id_user'");
+        
+        if(!$hash == []){
+
+            $result = password_verify($password, $hash[0]["password"]);
+        } else {
+            echo "Id do usuario não informado";exit;
+        }
+
+        return $result;
 
     }
 
-    public function getPhone(){
-
-        return $this->phone;
-
+    public function encryptPassword($password){
+        return password_hash($password, PASSWORD_DEFAULT);
     }
 
+    public function dencryptPassword($password,$hash){
+        return password_verify($password,$hash);
+    }
 
     // SETs
     public function setName($name){
@@ -124,15 +215,9 @@ class User extends Crud {
 
         if(!empty($login)){
             $result = $this->read("tb_user", "login", "login = '$login'");
-            if(!$result == []){
 
                 $this->login = $login;
 
-            } else {
-
-                ExceptionsUser::invalidLogin();
-                
-            }
 
         } else{
             ExceptionsUser::loginNotInformed();
@@ -160,41 +245,56 @@ class User extends Crud {
 
     }
 
-    public function setPhone($phone){
-
-        // Retirar todos os caracters do numero
-        $phone = str_replace(["(",")","-"," "], "", $phone);
-        $this->phone = $phone;
-
-    }
-
 
     public function getPassword()
     {
         return $this->password;
     }
+    // GETs
+    public function getName(){
 
+        return $this->name;
+
+    }
+
+    public function getLogin(){
+
+        return $this->login;
+
+    }
+
+    public function getEmail(){
+
+        return $this->email;
+
+    }
 
     public function setPassword($password)
     {       
-        $login = $this->getLogin();
-        $passwordUser = new PasswordUser();
-        $id_user = $this->read("tb_user", "id_user", "login = '$login'");
-        if(!$id_user == []){
-            $passwordVerify = $passwordUser->varifyPassword($id_user[0]["id_user"],$password);
-            
-            if($password == $passwordVerify){
 
-                $this->password = $password;
-            } else {
-                var_dump($passwordVerify);exit;
-                ExceptionsUser::invalidLogin();
-            }
+        if(!empty($password)){
+            $password = $this->encryptPassword($password);
+            $this->password = $password;
 
         } else{
-            echo "User não encontrado";
-            ExceptionsUser::invalidLogin();
+            echo "Senha não informada";exit;
         }
 
+
+    }
+
+
+
+    public function getId_user()
+    {
+        return $this->id_user;
+    }
+
+
+    public function setId_user($id_user)
+    {
+        $this->id_user = $id_user;
+
+        return $this;
     }
 }

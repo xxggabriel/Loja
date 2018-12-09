@@ -10,6 +10,7 @@
                         <span>
                             <input type="checkbox" class="checkbox"> 
                             Lembrar dados
+                            <a href="#">Esqueci minha senha</a>
                         </span>
                         <button type="submit" class="btn btn-default">Login</button>
                     </form>
@@ -22,9 +23,10 @@
                 <div class="signup-form"><!--sign up form-->
                     <h2>Faça seu cadastro!</h2>
                     <form action="/register" method="POST">
-                        <input type="text" placeholder="Login" name="login_create"/>
-                        <input type="email" placeholder="Email Address" name="email_create"/>
-                        <input type="password" placeholder="Password" name="password_create"/>
+                        <input type="name" placeholder="Nome" name="name"/>
+                        <input type="text" placeholder="Login" name="login"/>
+                        <input type="email" placeholder="Email Address" name="email"/>
+                        <input type="password" placeholder="Password" name="password"/>
                         <button type="submit" class="btn btn-default">Cadastrar</button>
                     </form>
                 </div><!--/sign up form-->

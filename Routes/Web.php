@@ -33,7 +33,8 @@ $app->post('/login', function() {
 });
 
 $app->post('/register', function() {
-
+    $user = new User();
+    $user->registerUser($_POST);
     header("Location: /");
     exit;
 
