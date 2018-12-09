@@ -1,4 +1,4 @@
-<?php if(!class_exists('Rain\Tpl')){exit;}?><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="utf-8">
@@ -89,7 +89,7 @@
 								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<?php if( !isset($_SESSION['logado']) ){ ?><li><a href="/login"><i class="fa fa-lock"></i> Login</a></li><?php }else{ ?><li><a href="/account"><i class="fa fa-user"></i> Account</a></li><?php } ?>
+								{if="!isset($_SESSION['logado'])"}<li><a href="/login"><i class="fa fa-lock"></i> Login</a></li>{else}<li><a href="/account"><i class="fa fa-user"></i> Account</a></li>{/if}
 							</ul>
 						</div>
 					</div>
