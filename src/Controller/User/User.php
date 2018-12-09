@@ -65,10 +65,15 @@ class User extends Crud {
     }
 
     private function createSession(){
-        $_SESSION["ession_user"] = "SESSION-".$this->getLogin().date("d-m-Y-H:i");
         $_SESSION["email_user"] = $this->getEmail();
         $_SESSION["name_user"] = $this->getName();
-        $_SESSION["id_user"] =$this->getId_user();
+        $_SESSION["id_user"] = $this->getId_user();
+        $_SESSION["session_user"] = $this->getLogin()."-".$this->getEmail();
+        $_SESSION["logado"] = true;
+        $this->create("tb_session", [
+            "id_user" => $this->getId_user(),
+            "session" => $_SESSION["session_user"]
+        ]);
     }
 
     public function loginUser($data = array()){

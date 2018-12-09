@@ -47,3 +47,4 @@ $app->get('/contact', function() {
     $page->setTpl("contact");
 
 });
+

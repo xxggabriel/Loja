@@ -14,13 +14,13 @@ class Page{
     ];
     private $options = [];
 
-    public function __construct($opts = array()){
+    public function __construct($opts = array(),$tpl_dir = "/src/Views/site/"){
 
         $this->options = array_merge($this->default,$opts);
 
         // config
         $config = array(
-            "tpl_dir"       => $_SERVER["DOCUMENT_ROOT"]."/src/Views/",
+            "tpl_dir"       => $_SERVER["DOCUMENT_ROOT"].$tpl_dir,
             "cache_dir"     => $_SERVER["DOCUMENT_ROOT"]."/src/Views/cache/",
             "debug"         => false, // set to false to improve the speed
         );
