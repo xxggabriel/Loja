@@ -5,8 +5,8 @@
                 <div class="login-form"><!--login form-->
                     <h2>Faça login na sua conta</h2>
                     <form action="/login" method="POST">
-                        <input type="text" placeholder="Login" name="login_login"/>
-                        <input type="password" placeholder="Sua senha" name="password_login"/>
+                        <input type="text" placeholder="Login" name="login"/>
+                        <input type="password" placeholder="Sua senha" name="password"/>
                         <span>
                             <input type="checkbox" class="checkbox"> 
                             Lembrar dados

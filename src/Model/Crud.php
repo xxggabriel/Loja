@@ -4,7 +4,7 @@ namespace Model;
 
 use Model\DB\Sql;
 use Model\Model;
-abstract Class Crud extends Model implements CrudInterface{
+abstract class Crud extends Model implements CrudInterface{
 
     private $colunm  = [];
     private $value = [];

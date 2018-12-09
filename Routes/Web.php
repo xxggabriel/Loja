@@ -1,6 +1,8 @@
 <?php 
 
 use Model\Page;
+use Controller\User\User;
+
 $app->notFound(function(){
     $page = new Page([
         "header" => false,
@@ -18,12 +20,13 @@ $app->get('/', function() {
 
 $app->get('/login', function() {
     $page = new Page();
- 
+
     $page->setTpl("login");
 });
 
 $app->post('/login', function() {
-
+    $user = new User();
+    $user->loginUser($_POST);
     header("Location: /");
     exit;
 
