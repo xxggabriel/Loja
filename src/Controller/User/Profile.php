@@ -70,11 +70,11 @@ class Profile extends Crud{
         if(!empty($id_user)){
             $result = $this->selectProfile("id_user","id_user = '$id_user'","tb_user");
 
-            if(in_array($result[0],$result)){
+            if(!$result == []){
 
                 $result = $this->selectProfile("id_user","id_user = '$id_user'");
                 
-                if(!in_array($result[0],$result)){
+                if(!$result == []){
                    
                     $this->id_user = $id_user;
 
@@ -110,7 +110,7 @@ class Profile extends Crud{
 
             // Varifica na tabela TB_USER_PROFILE se exite algum usuario com user name igual ao passado
             $result = $this->selectProfile("user_name", "user_name = '$user_name'");
-            if(!in_array($result[0], $result)){
+            if(!$result == []){
     
                 $this->user_name = $user_name;
                 

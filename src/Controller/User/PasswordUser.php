@@ -35,7 +35,7 @@ class PasswordUser extends Crud{
         // Exite algum token para esse usuario dentro de 1 hora
         $result = $this->read("tb_recover_password_user","*", "id_user = '$id_user'");
         
-        if(in_array($result[0],$result)){
+        if(!$result == []){
 
             $token = bin2hex(random_bytes(50));
 
@@ -68,7 +68,7 @@ class PasswordUser extends Crud{
     public function varifyRecoverPassword($token){
         // Varificar se exite um token valido
         $result = $this->read("tb_recover_password_user","*", "token = '$token'");
-        if(in_array($result[0],$result)){
+        if(!$result == []){
             $result = $result[0];
 
             // Varificar se o status
@@ -92,10 +92,10 @@ class PasswordUser extends Crud{
     public function varifyPassword($id_user,$password){
 
         $hash = $this->read("tb_password_user", "password", "id_user = '$id_user'");
+        
+        $result = password_verify($password, $hash[0]["password"]);
 
-        $password = password_verify($password, $hash[0]["password"]);
-
-        return $password;
+        return $result;
 
     }
 
@@ -111,9 +111,9 @@ class PasswordUser extends Crud{
 
             //Verificar se existe usuário com esse id
             $result = $this->read("tb_user","id_user", "id_user = '$id_user'");
-            if(in_array($result[0], $result)){
+            if(!$result == []){
                 $result = $this->read("tb_password_user","id_user", "id_user = '$id_user'");
-                if(!in_array($result[0], $result)){
+                if(!$result == []){
 
                     $this->id_user = $id_user;
 

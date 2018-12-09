@@ -25,4 +25,8 @@ class ExceptionsUser{
     public static function notCreateUser(){
         throw new \Exception("Não foi passivel criar o Usuário.");
     } 
+
+    public static function invalidLogin(){
+        throw new \Exception("Login ou senha invalido.");
+    } 
 }

@@ -66,7 +66,7 @@ class Type extends Crud{
         if(!empty($name)){
             $result = $this->read("tb_type","name", "name = '$name'");
             
-            if(!in_array($result[0], $result)){
+            if(!$result == []){
     
                 $this->name = $name;
             } else{
