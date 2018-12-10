@@ -105,7 +105,7 @@ class User extends Crud {
     }
 
     public static function logoutUser(){
-        unset($_SESSION['logged']);
+        session_destroy();
         header("Location: /login");
         exit;
     }
@@ -241,11 +241,9 @@ class User extends Crud {
     public function setLogin($login){
 
         if(!empty($login)){
-            $result = $this->read("tb_user", "login", "login = '$login'");
 
-                $this->login = $login;
-
-
+            $this->login = $login;
+    
         } else{
             ExceptionsUser::loginNotInformed();
         }

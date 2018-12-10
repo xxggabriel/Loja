@@ -61,14 +61,7 @@ class Brand extends Crud{
     public function setName($name)
     {
         if(!empty($name)){
-            $result = $this->read("tb_brand","name", "name = '$name'");
-            
-            if(!$result == []){
-    
-                $this->name = $name;
-            } else{
-                ExceptionBrand::brandExisting();
-            }
+            $this->name = $name;
         } else {
             ExceptionsBrand::brandNotInformed();
         }

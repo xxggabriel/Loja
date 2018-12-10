@@ -73,8 +73,7 @@ class Product extends Crud{
 
     public function setId_provider($id_provider)
     {
-        $result = $this->read("tb_provider", "id_provider", "id_provider = '$id_provider'");
-        if(!$result == []){
+        if(!empty($id_provider)){
 
             $this->id_provider = $id_provider;
 
@@ -95,8 +94,7 @@ class Product extends Crud{
 
     public function setId_brand($id_brand)
     {
-        $result = $this->read("tb_brand", "id_brand", "id_brand = '$id_brand'");
-        if(!$result == []){
+        if(!empty($id_brand)){
 
             $this->id_brand = $id_brand;
 
@@ -114,8 +112,7 @@ class Product extends Crud{
 
     public function setId_type($id_type)
     {
-        $result = $this->read("tb_type", "id_type", "id_type = '$id_type'");
-        if(!$result == []){
+        if(!empty($id_type)){
 
             $this->id_type = $id_type;
 

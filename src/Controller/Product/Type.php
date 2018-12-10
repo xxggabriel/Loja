@@ -64,14 +64,9 @@ class Type extends Crud{
     public function setName($name)
     {
         if(!empty($name)){
-            $result = $this->read("tb_type","name", "name = '$name'");
             
-            if(!$result == []){
-    
-                $this->name = $name;
-            } else{
-                ExceptionType::typeExisting();
-            }
+        $this->name = $name;
+        
         } else {
             ExceptionsType::typeNotInformed();
         }

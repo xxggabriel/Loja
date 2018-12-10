@@ -95,10 +95,15 @@ class Provider extends Crud{
 
     public function setCnpj($cnpj)
     {
-        if($this->ValidateCnpj($cnpj)){
+        if(!empty($cnpj)){
 
-            $this->cnpj = $cnpj;
-        } 
+            if($this->ValidateCnpj($cnpj)){
+    
+                $this->cnpj = $cnpj;
+            } 
+        } else {
+            $this->cnpj = NULL;
+        }
 
     }
 }
