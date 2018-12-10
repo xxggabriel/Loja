@@ -80,7 +80,6 @@ class User extends Crud {
 
         $this->setLogin($data["login"]);
         $this->setPassword($data["password"]);
-        $this->createSession($this->getLogin());
 
         // Recebendo Login
         $login = $data["login"];
@@ -96,6 +95,8 @@ class User extends Crud {
         } else {
             ExceptionsUser::loginNotInformed();
         }
+        $this->createSession($this->getLogin());
+
     }
 
     public function registerUser($data = array()){
