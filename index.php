@@ -1,12 +1,13 @@
 <?php 
-session_start();
 require "vendor/autoload.php";
 
 $app = new \Slim\Slim();
+session_start();
 
 $app->config('debug', true);
 
 // session_destroy();
+
 // print_r($_SESSION);
 // exit;
 // Fazendo Require das rotas

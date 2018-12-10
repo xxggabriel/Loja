@@ -64,19 +64,24 @@ class User extends Crud {
 
     }
 
-    private function createSession(){
-        $_SESSION["email_user"] = $this->getEmail();
-        $_SESSION["name_user"] = $this->getName();
-        $_SESSION["id_user"] = $this->getId_user();
+    private function createSession($status){
+        $_SESSION["email"] = $this->getEmail();
+        $_SESSION["name"] = $this->getName();
+        $_SESSION["id"] = $this->getId_user();
         $_SESSION["session_user"] = $this->getLogin()."-".$this->getEmail();
-        $_SESSION["logged"] = true;
+        if($status === 2){
+
+            $_SESSION["logged_user"] = true;
+        } else{
+            $_SESSION["logged_admin"] = true;
+        }
         $this->create("tb_session", [
             "id_user" => $this->getId_user(),
             "session" => $_SESSION["session_user"]
         ]);
     }
 
-    public function loginUser($data = array()){
+    public function loginUser($data = array(), $status = 2){
 
         $this->setLogin($data["login"]);
         $this->setPassword($data["password"]);
@@ -84,30 +89,34 @@ class User extends Crud {
         // Recebendo Login
         $login = $data["login"];
         // Selecionando todas as colunas da tabela tb_user
-        $user = $this->read("tb_user", "*", "login = '$login'");
-        if(!$user == []){
+        $user = $this->read("tb_user", "*", "login = '$login' AND status = $status");
+        if(!empty($user)){
 
             $this->setEmail($user[0]["email"]);
             $this->setName($user[0]["name"]);
             $this->setId_user($user[0]["id_user"]);
+            $this->setLogin($login);
             // Criando sessão
-            $this->createSession();
+            $this->createSession($status);
+        } else if(empty($user)) {
+
+            ExceptionsUser::invalidLogin();
+            
         } else {
+
             ExceptionsUser::loginNotInformed();
+
         }
-        $this->createSession($this->getLogin());
-        if(isset($_SESSION["route_login"])){
-            header("Location:".$_SESSION['route_login']);
-            unset($_SESSION['route_login']);
-            exit;
-        }
+    
 
     }
 
-    public static function logoutUser(){
+    public static function logoutUser($redirect = true){
         session_destroy();
-        header("Location: /login");
-        exit;
+        if($redirect){
+            header("Location: /login");
+            exit;
+        }
     }
 
     public function registerUser($data = array()){
@@ -132,10 +141,7 @@ class User extends Crud {
 
     public static function verifyLogin($route = NULL){
 
-        if( !isset($_SESSION["logged"]) &&
-            !isset($_SESSION["email_user"]) && 
-            !isset($_SESSION["name_user"])){
-            
+        if(empty($_SESSION["logged_user"])){
             $_SESSION['route_login'] = $route;
             header("Location: /login");
             exit;
@@ -146,7 +152,7 @@ class User extends Crud {
         // Exite algum token para esse usuario dentro de 1 hora
         $result = $this->read("tb_recover_password_user","*", "id_user = '$id_user'");
         
-        if(!$result == []){
+        if(!$rempty($user)){
 
             $token = bin2hex(random_bytes(50));
 
@@ -179,7 +185,7 @@ class User extends Crud {
     public function varifyRecoverPassword($token){
         // Varificar se exite um token valido
         $result = $this->read("tb_recover_password_user","*", "token = '$token'");
-        if(!$result == []){
+        if(!$rempty($user)){
             $result = $result[0];
 
             // Varificar se o status

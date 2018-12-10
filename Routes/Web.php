@@ -20,12 +20,13 @@ $app->get('/', function() {
 
 $app->get('/login', function() {
     $page = new Page();
-
+    User::logoutUser(false);
     $page->setTpl("login");
 });
 
 $app->post('/login', function() {
     $user = new User();
+    
     $user->loginUser($_POST);
     header("Location: /");
     exit;

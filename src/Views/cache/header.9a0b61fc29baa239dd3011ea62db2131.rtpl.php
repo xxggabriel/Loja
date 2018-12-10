@@ -89,7 +89,7 @@
 								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<?php if( !isset($_SESSION['logged']) ){ ?><li><a href="/login"><i class="fa fa-lock"></i> Login</a></li><?php }else{ ?><li><a href="/account"><i class="fa fa-user"></i> Account</a></li><?php } ?>
+								<?php if( empty($_SESSION['logged_user']) ){ ?><li><a href="/login"><i class="fa fa-lock"></i> Login</a></li><?php }elseif( empty($_SESSION['logged_user']) ){ ?><li><a href="/login"><i class="fa fa-lock"></i> Admin</a></li><?php }else{ ?><li><a href="/account"><i class="fa fa-user"></i> Minha Conta</a></li><?php } ?>
 							</ul>
 						</div>
 					</div>
