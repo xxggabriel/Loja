@@ -69,7 +69,7 @@ class User extends Crud {
         $_SESSION["name_user"] = $this->getName();
         $_SESSION["id_user"] = $this->getId_user();
         $_SESSION["session_user"] = $this->getLogin()."-".$this->getEmail();
-        $_SESSION["logado"] = true;
+        $_SESSION["logged"] = true;
         $this->create("tb_session", [
             "id_user" => $this->getId_user(),
             "session" => $_SESSION["session_user"]
@@ -96,7 +96,18 @@ class User extends Crud {
             ExceptionsUser::loginNotInformed();
         }
         $this->createSession($this->getLogin());
+        if(isset($_SESSION["route_login"])){
+            header("Location:".$_SESSION['route_login']);
+            unset($_SESSION['route_login']);
+            exit;
+        }
 
+    }
+
+    public static function logoutUser(){
+        unset($_SESSION['logged']);
+        header("Location: /login");
+        exit;
     }
 
     public function registerUser($data = array()){
@@ -119,7 +130,17 @@ class User extends Crud {
     }
 
 
+    public static function verifyLogin($route = NULL){
 
+        if( !isset($_SESSION["logged"]) &&
+            !isset($_SESSION["email_user"]) && 
+            !isset($_SESSION["name_user"])){
+            
+            $_SESSION['route_login'] = $route;
+            header("Location: /login");
+            exit;
+        } 
+    }
 
     public function recoverPassword($id_user){
         // Exite algum token para esse usuario dentro de 1 hora
