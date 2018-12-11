@@ -42,8 +42,8 @@ class Admin extends User{
 
     public static function listUser($id_user){
         $user = new User();
-        $result = $user->selectUser($id_user)[0];
-        return $result;
+        $result = $user->selectUser($id_user);
+        return $result[0];
     }
 
 
@@ -55,6 +55,14 @@ class Admin extends User{
     public static function listProduct($id_user){
         $user = new User();
         return $user->selectProducts();
+    }
+
+    public static function createUserAdmin($data = array(), $route = "/admin/users"){
+
+        $user = new User();
+        $user->createUser($data);
+        header("Location: $route");
+        exit;
     }
 
     public static function updateAdmin($data = array(),$id_user, $route = "/admin/users"){

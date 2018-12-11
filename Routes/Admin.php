@@ -35,6 +35,7 @@ $app->get('/admin/logout', function() {
     
 });
 
+// Users
 $app->get('/admin/users', function() {
     Admin::verifyLoginAdmin();
     $page = new PageAdmin();
@@ -44,18 +45,22 @@ $app->get('/admin/users', function() {
     ]);
 });
 
-$app->get('/admin/products', function() {
+$app->get('/admin/users/create', function() {
     Admin::verifyLoginAdmin();
-    
-    $page->setTpl("index");
+   
+    $page = new PageAdmin();
+
+    $page->setTpl("user-create");
+
 });
 
-$app->get('/admin/providers', function() {
+$app->post('/admin/users/create', function() {
     Admin::verifyLoginAdmin();
-    
-    $page->setTpl("index");
+    if(!isset($_POST["status"]) || !$_POST["status"] == 3){
+        $_POST["status"] = 2;
+    }
+    Admin::createUserAdmin($_POST);
 });
-
 
 $app->get('/admin/users/:id_user/delete', function($id_user) {
     Admin::verifyLoginAdmin();
@@ -86,6 +91,7 @@ $app->post('/admin/users/:id_user', function($id_user) {
     Admin::updateAdmin($_POST,$id_user);
 });
 
+
 $app->get('/admin/users/:id_user/password', function($id_user) {
     Admin::verifyLoginAdmin();
    
@@ -104,5 +110,22 @@ $app->post('/admin/users/:id_user/password', function($id_user) {
     }
     Admin::updateAdminPassword($_POST["password"],$id_user);
 });
+// end Users
+
+// Products
+$app->get('/admin/products', function() {
+    Admin::verifyLoginAdmin();
+    
+    $page->setTpl("products");
+});
 
 
+
+// end Products
+
+
+$app->get('/admin/providers', function() {
+    Admin::verifyLoginAdmin();
+    
+    $page->setTpl("index");
+});
