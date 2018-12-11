@@ -39,16 +39,16 @@ class User extends Crud {
 
     }
 
-    public function selectUser($login){   
+    public function selectUser($id_user){   
 
-        return $this->read("tb_user","*","login = '$login'");
+        return $this->read("tb_user","*","id_user = '$id_user'");
 
 
     }
 
-    public function selectUserAll(){
+    public function selectUserAll($where = "1 = 1"){
 
-        return $this->read("tb_user","*");
+        return $this->read("tb_user","*",$where);
 
     }
 
@@ -89,7 +89,7 @@ class User extends Crud {
         // Recebendo Login
         $login = $data["login"];
         // Selecionando todas as colunas da tabela tb_user
-        $user = $this->read("tb_user", "*", "login = '$login' AND status = $status");
+        $user = $this->read("tb_user", "*", "login = '$login' AND status = $status AND status > 0");
         if(!empty($user)){
 
             $this->setEmail($user[0]["email"]);
@@ -232,11 +232,11 @@ class User extends Crud {
 
     }
 
-    public function updatePassword($password){
+    public function updatePassword($password,$where){
         $hash = $this->encryptPassword($password);
         $this->update("tb_user", [
             "password" => $hash
-        ]);
+        ], $where);
     }
 
     public function encryptPassword($password){

@@ -37,8 +37,11 @@ $app->get('/admin/logout', function() {
 
 $app->get('/admin/users', function() {
     Admin::verifyLoginAdmin();
-    
-    $page->setTpl("index");
+    $page = new PageAdmin();
+
+    $page->setTpl("users",[
+        "users" => Admin::listAllUser()
+    ]);
 });
 
 $app->get('/admin/products', function() {
@@ -53,34 +56,53 @@ $app->get('/admin/providers', function() {
     $page->setTpl("index");
 });
 
-$app->get('/admin/recovers', function() { 
-    $page = new PageAdmin([
-        "header" => false,
-        "footer" => false
-    ]);
-    $page->setTpl("recover-password");
+
+$app->get('/admin/users/:id_user/delete', function($id_user) {
+    Admin::verifyLoginAdmin();
+    Admin::deleteAdminUser($id_user);
 });
 
-$app->post('/admin/recovers', function() {
-    $admin = new User();
-    $admin->recoverPassword($_POST["token"], "/admin/recovers/update");
-
-});
-
-
-$app->get('/admin/recovers/update', function() {
+$app->get('/admin/users/:id_user', function($id_user) {
+    Admin::verifyLoginAdmin();
+   
     $page = new PageAdmin();
-    $page->setTpl("recovers-update");
+    $result = Admin::listUser($id_user);
 
+    $page->setTpl("user-update",["user" =>[
+        "id_user" => $result["id_user"],
+        "name" => $result["name"],
+        "login" => $result["login"],
+        "email" => $result["email"],
+        "phone" => $result["phone"],
+        "status" => $result["status"]
+    ]]);
+});
+
+$app->post('/admin/users/:id_user', function($id_user) {
+    Admin::verifyLoginAdmin();
+    if(!isset($_POST["status"]) || !$_POST["status"] == 3){
+        $_POST["status"] = 2;
+    }
+    Admin::updateAdmin($_POST,$id_user);
+});
+
+$app->get('/admin/users/:id_user/password', function($id_user) {
+    Admin::verifyLoginAdmin();
+   
+    $page = new PageAdmin();
+
+    $page->setTpl("user-password",["user" => [ 
+        "id_user" => $id_user
+    ]]);
 
 });
 
-$app->post('/admin/recovers/update', function() {
-    $user = new User();
-    $user->updatePassword($_POST["password"]);
-    header("Location: /admin");
-    exit;
+$app->post('/admin/users/:id_user/password', function($id_user) {
+    Admin::verifyLoginAdmin();
+    if(!isset($_POST["status"]) || !$_POST["status"] == 3){
+        $_POST["status"] = 2;
+    }
+    Admin::updateAdminPassword($_POST["password"],$id_user);
 });
-
 
 
