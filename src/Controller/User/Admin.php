@@ -23,4 +23,12 @@ class Admin extends User{
         exit;
     }
 
+    public static function logoutAdmin($redirect = true){
+        session_destroy();
+        if($redirect){
+            header("Location: /login/admin");
+            exit;
+        }
+    }
+
 }

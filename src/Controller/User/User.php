@@ -148,12 +148,16 @@ class User extends Crud {
         } 
     }
 
-    public function recoverPassword($id_user){
-        // Exite algum token para esse usuario dentro de 1 hora
-        $result = $this->read("tb_recover_password_user","*", "id_user = '$id_user'");
-        
-        if(!$rempty($user)){
+    public function recoverPassword($email,$page){
+        // Receber o id do email passado
+        $result = $this->read("tb_user", "id_user", "email = '$email'");
 
+        $id_user = $result[0]["id_user"];
+        // Exite algum token para esse usuario dentro de 1 hora
+        $user = $this->read("tb_recover_password_user","*", "id_user = '$id_user'");
+        
+        if(!empty($user)){
+        //    Atualizar token
             $token = bin2hex(random_bytes(50));
 
             $this->update("tb_recover_password_user",[
@@ -162,30 +166,34 @@ class User extends Crud {
             ], "id_user = '$id_user'");
 
         } else{
-            
+             // Criar token
             $token = bin2hex(random_bytes(50));
     
             $this->create("tb_recover_password_user",[
                 "id_user" => $id_user,
                 "token" => $token
             ]);
-    
-            $link = "http://localhost:8888/recuperar/?token=$token";
+            // Criando link de validação
+            $link = "http://localhost:8888/recovers/?token=$token";
+            // Mensagem que vai para o email 
             $message = "O link para redefinir sua senha:";
-            $result = $this->read("tb_user", "email,name", "id_user = '$id_user'");
-            $email = $result[0]["email"];
-            $name = $result[0]["name"];
             
+            $user = $this->read("tb_user", "email,name", "id_user = '$id_user'");
+            $email = $user[0]["email"];
+            $name = $user[0]["name"];
+            // Enviar link para o email do usuario
             $mailer = new Mailer($email, $name,"Redefinir Senha","rest-password",["message" => $message, "link"=> $link]);
             $mailer->send();
         }
+        header("Location: $page");
+        exit;
 
     }
 
-    public function varifyRecoverPassword($token){
+    public function varifyRecoverPassword($token,$page){
         // Varificar se exite um token valido
         $result = $this->read("tb_recover_password_user","*", "token = '$token'");
-        if(!$rempty($user)){
+        if(!empty($result)){
             $result = $result[0];
 
             // Varificar se o status
@@ -193,7 +201,10 @@ class User extends Crud {
                 // Varifica se foi criando dentro de 1 hora
                 $date = date('Y-m-d H:i:s', strtotime('-1 hour'));        
                 if($result["date"] > $date) {
-                    return true;
+                    
+                    header("Location: /admin/recovers/update");
+                    exit;
+                    exit;
                 } else {
                    ExceptionsUser::expiredToken();
                 }
@@ -219,6 +230,13 @@ class User extends Crud {
 
         return $result;
 
+    }
+
+    public function updatePassword($password){
+        $hash = $this->encryptPassword($password);
+        $this->update("tb_user", [
+            "password" => $hash
+        ]);
     }
 
     public function encryptPassword($password){
