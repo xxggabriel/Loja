@@ -65,10 +65,10 @@ abstract class Crud extends Model implements CrudInterface{
          
     }
      
-    public function delete($table, $where){
+    public function delete($table, $where,$item = ""){
         $sql = new Sql();
 
-        $sql->query("UPDATE $table SET status = 0 WHERE $where");
+        $sql->query("UPDATE $table SET status$item = 0 WHERE $where");
 
 
     }

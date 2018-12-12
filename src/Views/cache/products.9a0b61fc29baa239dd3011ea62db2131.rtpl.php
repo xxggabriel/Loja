@@ -1,4 +1,4 @@
-<section id="advertisement">
+<?php if(!class_exists('Rain\Tpl')){exit;}?><section id="advertisement">
     <div class="container">
         <img src="/resource/site/images/shop/advertisement.jpg" alt="" />
     </div>

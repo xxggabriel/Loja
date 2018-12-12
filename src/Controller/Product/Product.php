@@ -13,13 +13,14 @@ class Product extends Crud{
     private $name;
     private $value;
     private $value_cost ;
+    private $amount;
 
     public function createProduct($data = array()){
 
         $this->setId_brand($data["id_brand"]);
         $this->setId_provider($data["id_provider"]);
         $this->setId_type($data["id_type"]);
-        $this->setId_product_sample($data["id_product_sample"]);
+        $this->setAmount($data["amount"]);
         $this->setName($data["name"]);
         $this->setValue($data["value"]);
         $this->setValue_cost($data["value_cost"]);
@@ -29,8 +30,8 @@ class Product extends Crud{
             "id_brand" => $this->getId_brand(),
             "id_provider" => $this->getId_provider(),
             "id_type" => $this->getId_type(),
-            "id_product_sample" =>$this->getId_product_sample(),
             "name" => $this->getName(),
+            "amount" => $this->getAmount(),
             "value" => $this->getValue(),
             "value_cost" => $this->getValue_cost()
         ]);
@@ -45,25 +46,35 @@ class Product extends Crud{
 
     }
 
-    public function selectAllProducts($colunms = "*", $where = "1 = 1"){
+    public function selectAllProducts($colunms = "*", $where = "1 = 1 AND status_product > 0"){
 
         return $this->read("tb_product", $colunms, $where);
 
     }
 
-    public function updateProduct($data,$id_product){
+    public function updateProduct($data = array(),$id_product){
 
-        $this->update("tb_product", $data, "id_product = '$id_product'");
+        $this->update("tb_product", $data, "id_product = ".$id_product);
 
     }
 
     public function deleteProduct($id_product){
 
-        $this->delete("tb_product", "id_product = '$id_product'");
+        $this->delete("tb_product", "id_product = '$id_product'", "_product");
 
     }
     
+    public function createProductSample($data = array()){
 
+        $this->create("tb_product_sample",[
+            "id_product" => $data["id_product"],
+            "title" => $data["title"],
+            "description" => $data["description"],
+            "photo" => $data["photo"],
+            "link" => $data["link"]
+        ]);
+
+    }
 
     public function getId_provider()
     {
@@ -173,6 +184,26 @@ class Product extends Crud{
     public function setValue_cost($value_cost)
     {
         $this->value_cost = $value_cost;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of amount
+     */ 
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * Set the value of amount
+     *
+     * @return  self
+     */ 
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
 
         return $this;
     }

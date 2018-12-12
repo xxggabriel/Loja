@@ -13,6 +13,7 @@ class User extends Crud {
     private $email;
     private $phone;
     private $id_user;
+    private $status;
 
     public function createUser($data = array()){
 
@@ -21,6 +22,7 @@ class User extends Crud {
         $this->setLogin($data["login"]) ;
         $this->setEmail($data["email"]);
         $this->setPassword($data["password"]);
+        $this->setStatus($data["status"]) ;
 
 
         $result = $this->create("tb_user", [
@@ -28,7 +30,7 @@ class User extends Crud {
             "login" => $this->getLogin(),
             "email" => $this->getEmail(),
             "password" => $this->getPassword(),
-            "status" => 1
+            "status" => $this->getStatus()
 
         ]);
 
@@ -343,6 +345,20 @@ class User extends Crud {
     public function setId_user($id_user)
     {
         $this->id_user = $id_user;
+
+        return $this;
+    }
+
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
 
         return $this;
     }

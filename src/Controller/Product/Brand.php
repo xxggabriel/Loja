@@ -23,7 +23,7 @@ class Brand extends Crud{
         }
     }
 
-    public function selectBrand($colunms = "*", $id_brand){
+    public function selectBrand( $id_brand, $colunms = "*"){
 
         return $this->read("tb_brand", $colunms,"id_brand = '$id_brand'");
 

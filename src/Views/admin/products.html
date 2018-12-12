@@ -3,11 +3,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Lista de Usuários
+        Lista de Produtos
       </h1>
       <ol class="breadcrumb">
         <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active"><a href="/admin/users">Usuários</a></li>
+        <li class="active"><a href="/admin/products">Produtos</a></li>
       </ol>
     </section>
     
@@ -19,9 +19,9 @@
               <div class="box box-primary">
                 
                 <div class="box-header">
-                  <a href="/admin/users/create" class="btn btn-success">Cadastrar Usuário</a>
+                  <a href="/admin/product/create" class="btn btn-success">Cadastrar Produtos</a>
                   <div class="box-tools">
-                    <form action="/admin/users">
+                    <form action="/admin/products">
                       <div class="input-group input-group-sm" style="width: 150px;">
                         <input type="text" name="search" class="form-control pull-right" placeholder="Search" value="">
                         <div class="input-group-btn">
@@ -38,24 +38,23 @@
                       <tr>
                         <th style="width: 10px">#</th>
                         <th>Nome</th>
-                        <th>E-mail</th>
-                        <th>Login</th>
-                        <th style="width: 60px">Admin</th>
-                        <th style="width: 240px">&nbsp;</th>
+                        <th>Valor</th>
+                        <th>Valor custo</th>
+                        <th>Quantidade</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {loop="$users"}
+                      {loop="$product"}
                       <tr>
-                        <td>{$value.id_user}</td>
-                        <td>{$value.name_user}</td>
-                        <td>{$value.email}</td>
-                        <td>{$value.login}</td>
-                        <td>{if="$value.status == 3"}Sim{else}Não{/if}</td>
+                        <td>{$value.id_product}</td>
+                        <td>{$value.name_product}</td>
+                        <td>{$value.value}</td>
+                        <td>{$value.value_cost}</td>
+                        <td>{$value.amount}</td>
                         <td>
-                          <a href="/admin/users/{$value.id_user}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                          <a href="/admin/users/{$value.id_user}/password" class="btn btn-default btn-xs"><i class="fa fa-unlock"></i> Alterar Senha</a>
-                          <a href="/admin/users/{$value.id_user}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+                          <a href="/admin/product/{$value.id_product}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                          <a href="/admin/product/sample/{$value.id_product}" class="btn btn-default btn-xs"><i class="fa fa-edit"></i>Amostra Do Produto </a>
+                          <a href="/admin/product/{$value.id_product}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
                         </td>
                       </tr>
                       {/loop}

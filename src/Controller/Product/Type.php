@@ -25,7 +25,7 @@ class Type extends Crud{
         }
     }
 
-    public function selectType($colunms = "*", $id_type){
+    public function selectType($id_type, $colunms = "*"){
 
         return $this->read("tb_type", $colunms,"id_type = '$id_type'");
 
