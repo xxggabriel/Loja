@@ -147,7 +147,7 @@ $app->get("/admin/product/:id_product", function($id_product){
     $model->setData($product);
     $model->setData($provider);
     $model->setData($brand);
-
+    // var_dump([Admin::listAllProvider()]);
     $page = new PageAdmin();
     $page->setTpl("product-update",[
 
@@ -156,16 +156,19 @@ $app->get("/admin/product/:id_product", function($id_product){
             "name_product" => $model->getname_product(),
             "value" => $model->getvalue(),
             "value_cost" => $model->getvalue_cost(),
-            "amount" => $model->getamount()        
+            "amount" => $model->getamount(),
+            "id_provider" => $model->getid_provider(),
+            "id_brand" => $model->getid_brand(),
+            "id_type" => $model->getid_type()
         ],
         "provider" =>[
-            "id_provider" => $model->getid_provider()
+           
         ],
         "brand" =>[
-            "id_brand" => $model->getid_brand()
+            Admin::listAllProvider()
         ],
         "type" =>[
-            "id_type" => $model->getid_type()
+            Admin::listAllProvider()
         ]
 
     ]);
@@ -174,18 +177,34 @@ $app->get("/admin/product/:id_product", function($id_product){
 
 $app->post("/admin/product/:id_product", function($id_product){
     Admin::verifyLoginAdmin();
-    
+
     Admin::updateProductAdmin($_POST,$id_product);
 
 });
 
 $app->get("/admin/product/sample/:id_product", function($id_product){
     Admin::verifyLoginAdmin();
+    $result = Admin::listProductSample($id_product);
+
+    $model = new Model();
+    $model->setData($result);
 
     $page = new PageAdmin();
-    $page->setTpl("product-update-sample",[
-         ["product" => $id_product]
-    ]);
+    if(empty($model->getValues()[0])){
+        
+        $page->setTpl("product-update-sample",[
+            "product" => [
+                "id_product" => $id_product
+            ]
+        ]);
+    } else{
+        
+        $page->setTpl("product-update-sample",[
+            "product" => $model->getValues()[0]
+        ]);
+    }
+
+        
 });
 
 $app->post("/admin/product/sample/:id_product", function($id_product){
@@ -193,7 +212,7 @@ $app->post("/admin/product/sample/:id_product", function($id_product){
     $result = Admin::savePhoto($_FILES["photo"]);
     $_POST["id_product"] = $id_product;
     $_POST["photo"] = $result;
-    // var_dump($_POST);exit;
+    
     Admin::createProductSampleAdmin($_POST);
 
 

@@ -23,8 +23,7 @@ abstract class Crud extends Model implements CrudInterface{
 
         // reverter o array 
         $this->values = array_reverse($this->values);
-
-    
+        
         $columns = implode(",", $this->colunm);
         $values = implode(",", $this->values);
 

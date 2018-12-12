@@ -21,19 +21,52 @@
                 <form role="form" action="/admin/product/<?php echo htmlspecialchars( $product["id_product"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="post">
                   <div class="box-body">
                     
+                    <!-- <div class="form-group">
+                      <label for="provider">Fornecedor</label>
+                      <input type="number" class="form-control" id="provider" name="id_provider" placeholder="Digite o nome" value="<?php echo htmlspecialchars( $product["id_provider"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+                    </div> -->
+
                     <div class="form-group">
                       <label for="provider">Fornecedor</label>
-                      <input type="number" class="form-control" id="provider" name="id_provider" placeholder="Digite o nome" value="<?php echo htmlspecialchars( $provider["id_provider"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+                      <select class="form-control" name="provider" id="provider">
+                      
+                        <?php $counter1=-1;  if( isset($provider) && ( is_array($provider) || $provider instanceof Traversable ) && sizeof($provider) ) foreach( $provider as $key1 => $value1 ){ $counter1++; ?>
+                        <option><?php echo htmlspecialchars( $value1["$key1"]["name_provider"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
+                        
+                        <?php } ?>
+                     
+                      </select>
                     </div>
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label for="brand">Marca</label>
-                      <input type="number" class="form-control" id="brand" name="id_brand" placeholder="Digite o nome" value="<?php echo htmlspecialchars( $brand["id_brand"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+                      <input type="number" class="form-control" id="brand" name="id_brand" placeholder="Digite o nome" value="<?php echo htmlspecialchars( $product["id_brand"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+                    </div> -->
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Example select</label>
+                      <select class="form-control" id="exampleFormControlSelect1">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
                     </div>
+                    
+                    <!-- <div class="form-group">
+                      <label for="desperson">Tipo</label>
+                      <input type="number" class="form-control" id="type" name="id_type" placeholder="Digite o nome" value="<?php echo htmlspecialchars( $product["id_type"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+                    </div> -->
 
                     <div class="form-group">
-                      <label for="desperson">Tipo</label>
-                      <input type="number" class="form-control" id="type" name="id_type" placeholder="Digite o nome" value="<?php echo htmlspecialchars( $type["id_type"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+                      <label for="exampleFormControlSelect1">Example select</label>
+                      <select class="form-control" id="exampleFormControlSelect1">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
                     </div>
 
                     <div class="form-group">

@@ -65,7 +65,6 @@ class Product extends Crud{
     }
     
     public function createProductSample($data = array()){
-
         $this->create("tb_product_sample",[
             "id_product" => $data["id_product"],
             "title" => $data["title"],
@@ -73,6 +72,18 @@ class Product extends Crud{
             "photo" => $data["photo"],
             "link" => $data["link"]
         ]);
+
+    }
+
+    public function selectAllProductsSample(){
+
+        return $this->read("tb_product_sample", "*");
+
+    }
+
+    public function selectProductSample($id_product){
+
+        return $this->read("tb_product_sample", "*", "id_product = $id_product");
 
     }
 

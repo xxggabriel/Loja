@@ -60,6 +60,12 @@ class Admin extends User{
         
     }
 
+    public static function listProductSample($id_product){
+        $product = new Product();
+       
+        return  $product->selectProductSample($id_product);
+    }
+
     public static function listAllBrand(){
         $brand = new Brand();
         return $brand->selectAllBrand();
@@ -132,14 +138,12 @@ class Admin extends User{
 
     public static function savePhoto($data){
         $uploaddir = $_SERVER["DOCUMENT_ROOT"].'/resource/upload/';
-        // $data["name"] = date("Y-m-d H:i:s")."nome-do-meu-site";
-        $uploadfile = $uploaddir . date("-Y-m-d")."-nome-do-site-".$data['name'];
+        $fileName = date("Y-m-d")."-nome-do-site-".$data['name'];
+        $uploadfile = $uploaddir . $fileName;
         echo '<pre>';
         if (move_uploaded_file($data['tmp_name'], $uploadfile)) {
-            return $uploadfile;
-        } else {
-            ExceptionAdmin::unsavedFile();
-        }
+            return  'http://localhost:8888/resource/upload/'. $fileName;
+        } 
         
 
         
@@ -151,10 +155,23 @@ class Admin extends User{
         return $result[0];
     }
 
+    public static function listAllType(){
+        $type = new Type();
+        $result = $type->selectAllType();
+        return $result;
+    }
+
     public static function listProvider($id_provider){
         $provider = new Provider();
         $result = $provider->selectProvider($id_provider);
         return $result[0];
+    }
+
+    public static function listAllProvider(){
+        $provider = new Provider();
+        $result = $provider->selectAllProvider();
+        // var_dump($result);exit;
+        return $result;
     }
 
     public static function listBrand($id_brand){
@@ -162,6 +179,7 @@ class Admin extends User{
         $result = $brand->selectbrand($id_brand);
         return $result[0];
     }
+
     // GETs and SETs
 
     public function getEmail()
