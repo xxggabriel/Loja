@@ -10,7 +10,7 @@ use Controller\Product\Brand;
 use Controller\Product\Type;
 use Controller\Sale\Sale;
 
-class Admin{
+class Admin extends User{
 
     private $id_user;
     private $login;

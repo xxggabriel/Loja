@@ -21,7 +21,7 @@ class Product extends Crud{
         $this->setId_provider($data["id_provider"]);
         $this->setId_type($data["id_type"]);
         $this->setAmount($data["amount"]);
-        $this->setName($data["name"]);
+        $this->setName($data["name_product"]);
         $this->setValue($data["value"]);
         $this->setValue_cost($data["value_cost"]);
 
@@ -30,7 +30,7 @@ class Product extends Crud{
             "id_brand" => $this->getId_brand(),
             "id_provider" => $this->getId_provider(),
             "id_type" => $this->getId_type(),
-            "name" => $this->getName(),
+            "name_product" => $this->getName(),
             "amount" => $this->getAmount(),
             "value" => $this->getValue(),
             "value_cost" => $this->getValue_cost()

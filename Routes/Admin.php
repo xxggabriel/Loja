@@ -174,7 +174,7 @@ $app->get("/admin/product/:id_product", function($id_product){
 
 $app->post("/admin/product/:id_product", function($id_product){
     Admin::verifyLoginAdmin();
-    // print_r($_POST);exit;
+    
     Admin::updateProductAdmin($_POST,$id_product);
 
 });

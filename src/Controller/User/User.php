@@ -95,11 +95,13 @@ class User extends Crud {
         if(!empty($user)){
 
             $this->setEmail($user[0]["email"]);
-            $this->setName($user[0]["name"]);
+            $this->setName($user[0]["name_user"]);
             $this->setId_user($user[0]["id_user"]);
             $this->setLogin($login);
+            
             // Criando sessão
             $this->createSession($status);
+
         } else if(empty($user)) {
 
             ExceptionsUser::invalidLogin();
@@ -125,12 +127,12 @@ class User extends Crud {
         
        
         $this->setEmail($data["email"]);
-        $this->setName($data["name"]);
+        $this->setName($data["name_user"]);
         $this->setLogin($data["login"]);     
         $this->setPassword($data["password"]);
         // Criando User
         $this->createUser([
-            "name" => $this->getName(),
+            "name_user" => $this->getName(),
             "login" => $this->getLogin(),
             "password" => $this->getPassword(),
             "email" => $this->getEmail()
@@ -180,9 +182,9 @@ class User extends Crud {
             // Mensagem que vai para o email 
             $message = "O link para redefinir sua senha:";
             
-            $user = $this->read("tb_user", "email,name", "id_user = '$id_user'");
+            $user = $this->read("tb_user", "email,name_user", "id_user = '$id_user'");
             $email = $user[0]["email"];
-            $name = $user[0]["name"];
+            $name = $user[0]["name_user"];
             // Enviar link para o email do usuario
             $mailer = new Mailer($email, $name,"Redefinir Senha","rest-password",["message" => $message, "link"=> $link]);
             $mailer->send();

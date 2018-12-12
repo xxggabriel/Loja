@@ -27,7 +27,7 @@
                   <div class="box-body">
                     <div class="form-group">
                       <label for="name">Nome</label>
-                      <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome">
+                      <input type="text" class="form-control" id="name" name="name_product" placeholder="Digite o nome">
                     </div>
                     <div class="form-group">
                       <label for="id_provider">Fornecedor</label>

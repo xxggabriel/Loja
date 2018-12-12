@@ -45,8 +45,8 @@
                       <input type="text" class="form-control" id="value" name="value" placeholder="Digite o login"  value="<?php echo htmlspecialchars( $product["value"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
                     </div>
                     <div class="form-group">
-                      <label for="value_cust">Valor Custo</label>
-                      <input type="tel" class="form-control" id="value_cust" name="value_cust" placeholder="Digite o telefone"  value="<?php echo htmlspecialchars( $product["value_cost"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+                      <label for="value_cost">Valor Custo</label>
+                      <input type="tel" class="form-control" id="value_cost" name="value_cost" placeholder="Digite o telefone"  value="<?php echo htmlspecialchars( $product["value_cost"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
                     </div>
                     <div class="form-group">
                       <label for="amount">Quantidade</label>
