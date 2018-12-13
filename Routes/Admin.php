@@ -162,12 +162,6 @@ $app->get("/admin/product/:id_product", function($id_product){
             "id_type" => $model->getid_type()
         ],
         "provider" =>[
-           
-        ],
-        "brand" =>[
-            Admin::listAllProvider()
-        ],
-        "type" =>[
             Admin::listAllProvider()
         ]
 
@@ -231,8 +225,68 @@ $app->get("/admin/product/:id_product/delete", function($id_product){
 // Provider
 $app->get('/admin/providers', function() {
     Admin::verifyLoginAdmin();
-    
+    $model = new Model();
+    $model->setData(Admin::listAllProviders());
+
+    $page = new PageAdmin();
+    $page->setTpl("providers",[
+        "provider" => $model->getValues()
+    ]);
+});
+
+
+$app->get('/admin/provider/create', function() {
+    Admin::verifyLoginAdmin();
+
+    $page = new PageAdmin();
+    $page->setTpl("provider-create");
+});
+
+$app->post('/admin/provider/create', function() {
+    Admin::verifyLoginAdmin();
+
+    Admin::createProviderAdmin($_POST);
+});
+
+
+$app->get('/admin/provider/:id_provider', function($id_provider) {
+    Admin::verifyLoginAdmin();
+
+    $model = new Model();
+    $model->setData(Admin::listProvider($id_provider));
+
+    $page = new PageAdmin();
+    $page->setTpl("provider-update",[
+        "provider" => $model->getValues()
+    ]);
+});
+$app->get('/admin/provider/:id_provider/delete', function($id_provider) {
+    Admin::verifyLoginAdmin();
+    Admin::deleteProviderAdmin($id_provider);
+});
+
+
+$app->post('/admin/provider/:id_provider', function($id_provider) {
+    Admin::verifyLoginAdmin();
+    Admin::updateProviderAdmin($_POST, $id_provider);
+});
+// end Provider
+
+
+// Brans
+$app->get('/admin/brands', function() {
+    Admin::verifyLoginAdmin();
+    $page = new PageAdmin();
     $page->setTpl("index");
 });
 
-// end Provider
+
+// Type
+$app->get('/admin/type', function() {
+    Admin::verifyLoginAdmin();
+    $page = new PageAdmin();
+    $page->setTpl("index");
+});
+
+
+// end Type

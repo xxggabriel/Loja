@@ -167,10 +167,9 @@ class Admin extends User{
         return $result[0];
     }
 
-    public static function listAllProvider(){
+    public static function listAllProviders(){
         $provider = new Provider();
         $result = $provider->selectAllProvider();
-        // var_dump($result);exit;
         return $result;
     }
 
@@ -179,6 +178,33 @@ class Admin extends User{
         $result = $brand->selectbrand($id_brand);
         return $result[0];
     }
+
+    public static function createProviderAdmin($data = array(), $route = "/admin/providers"){
+
+        $provider = new Provider();
+        $provider->createProvider($data);
+        header($route);
+        exit;
+
+    }
+
+    public static function deleteProviderAdmin($id_provider, $route = "/admin/providers"){
+        $provider = new Provider();
+        $provider->deleteProvider($id_provider);
+        header("Location: $route");
+        exit;
+    } 
+
+    public static function updateProviderAdmin($data = array(), $id_provider, $route = "/admin/providers"){
+
+        $provider = new Provider();
+        $provider->updateProvider($data, $id_provider);
+        header("Location: $route");
+        exit;
+
+    }
+
+
 
     // GETs and SETs
 

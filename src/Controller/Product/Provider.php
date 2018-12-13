@@ -12,12 +12,12 @@ class Provider extends Crud{
 
     public function createProvider($data = array()){
 
-        $this->setName($data["name"]);
+        $this->setName($data["name_provider"]);
         $this->setPhone($data["phone"]);
         $this->setCnpj($data["cnpj"]);
 
         $result = $this->create("tb_provider",[
-            "name" => $this->getName(),
+            "name_provider" => $this->getName(),
             "phone" => $this->getPhone(),
             "cnpj" => $this->getCnpj()
         ]);
@@ -29,7 +29,7 @@ class Provider extends Crud{
 
     }
 
-    public function selectAllProvider($colunms = "*", $where = "1 = 1"){
+    public function selectAllProvider($colunms = "*", $where = "1 = 1 AND status > 0"){
 
         return $this->read("tb_provider", $colunms, $where);
 
@@ -38,6 +38,12 @@ class Provider extends Crud{
     public function selectProvider($id_provider, $colunms = "*"){
 
         return $this->read("tb_provider", $colunms, "id_provider = '$id_provider'");
+
+    }
+
+    public function updateProvider($data = array(), $id_provider){
+        
+        $this->update("tb_provider", $data, "id_provider = $id_provider");
 
     }
 
@@ -58,7 +64,7 @@ class Provider extends Crud{
     {
 
         // Retirar todos os caracters do numero
-        $phone = str_replace(["(",")","-"," "], "", $phone);
+        $phone = str_replace(["(",")","-"," ", "+"], "", $phone);
         $this->phone = $phone;
 
         
