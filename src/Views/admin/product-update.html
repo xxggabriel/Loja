@@ -21,51 +21,52 @@
                 <form role="form" action="/admin/product/{$product.id_product}" method="post">
                   <div class="box-body">
                     
-                    <!-- <div class="form-group">
-                      <label for="provider">Fornecedor</label>
-                      <input type="number" class="form-control" id="provider" name="id_provider" placeholder="Digite o nome" value="{$product.id_provider}">
-                    </div> -->
+                    
 
                     <div class="form-group">
                       <label for="provider">Fornecedor</label>
-                      <select class="form-control" name="provider" id="provider">
-                      
+                      <select class="form-control" name="id_provider" id="provider">
+
+                          {if="empty($product.id_provider)"}
+                          <option value="NULL">Sem marca</option>
+                          {else}
+                          <option value="{$product.id_provider}">{$k = $product.id_provider - 1}{$provider.$k.name_provider} </option>
+                          {/if}
                         {loop="$provider"}
-                        <option>{$value.$key.name_provider}</option>
-                        
+                        <option value="{$value.id_provider}">{$value.name_provider}</option>                    
                         {/loop}
                      
                       </select>
                     </div>
 
-                    <!-- <div class="form-group">
-                      <label for="brand">Marca</label>
-                      <input type="number" class="form-control" id="brand" name="id_brand" placeholder="Digite o nome" value="{$product.id_brand}">
-                    </div> -->
                     <div class="form-group">
-                      <label for="exampleFormControlSelect1">Example select</label>
-                      <select class="form-control" id="exampleFormControlSelect1">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                      <label for="brand">Marca</label>
+                      <select class="form-control" name="id_brand" id="brand">
+                        {if="empty($product.id_brand)"}
+                        <option value="NULL">Sem marca</option>
+                        {else}
+                        <option value="{$product.id_brand}">{$k = $product.id_brand - 1}{$brand.$k.name_brand} </option>
+                        {/if}
+                        {loop="$brand"}
+                        <option value="{$value.id_brand}">{$value.name_brand}</option>                    
+                        {/loop}
+                     
                       </select>
                     </div>
                     
-                    <!-- <div class="form-group">
-                      <label for="desperson">Tipo</label>
-                      <input type="number" class="form-control" id="type" name="id_type" placeholder="Digite o nome" value="{$product.id_type}">
-                    </div> -->
-
                     <div class="form-group">
-                      <label for="exampleFormControlSelect1">Example select</label>
-                      <select class="form-control" id="exampleFormControlSelect1">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                      <label for="type">Tipo</label>
+                      <select class="form-control" name="id_type" id="type">
+
+                          {if="!empty($product.id_type)"}
+                          <option value="{$product.id_type }">{$k = $product.id_type - 1}{$type.$k.name_type} </option>
+                          {else}
+                          <option value="NULL">Sem tipo</option>
+                          {/if}
+                        {loop="$type"}
+                        <option value="{$value.id_type}">{$value.name_type}</option>                    
+                        {/loop}
+                     
                       </select>
                     </div>
 
