@@ -42,7 +42,8 @@ class Product extends Crud{
 
     public function selectProduct($id_product,$colunms = "*"){
 
-        return $this->read("tb_product", $colunms, "id_product = $id_product");
+        $result = $this->read("tb_product", $colunms, "id_product = $id_product");
+        return $result[0];
 
     }
 
@@ -70,7 +71,7 @@ class Product extends Crud{
             "title" => $data["title"],
             "description" => $data["description"],
             "photo" => $data["photo"],
-            "link" => $data["link"]
+            "link" => "/".$data["link"]
         ]);
 
     }
@@ -81,11 +82,25 @@ class Product extends Crud{
 
     }
 
-    public function selectProductSample($id_product){
+    public function selectProductSample($id_product, $colunm = "*"){
 
-        return $this->read("tb_product_sample", "*", "id_product = $id_product");
+        $result = $this->read("tb_product_sample",$colunm,  "id_product = $id_product");
+        if(!empty($result)){
+            return $result[0];
+        } else {
+            return [NULL];
+        }
 
     }
+
+    public function nameBrand($id_product){
+        $id_brand = $this->read("tb_product", "id_brand", "id_product = $id_product");
+        $id_brand = $id_brand[0]["id_brand"];
+        $result = $this->read("tb_brand", "name_brand", "id_brand = $id_brand");
+        return $result[0];
+    } 
+
+    // GETs and SETs
 
     public function getId_provider()
     {

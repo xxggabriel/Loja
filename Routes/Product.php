@@ -1,15 +1,42 @@
 <?php 
 
 use Model\Page;
-
+use Model\Model;
+use Controller\Product\Product;
+use Controller\User\Admin;
 $app->get('/products', function() {
-    $tpl = new Page();
+    $page = new Page();
  
-    $tpl->setTpl("products");
+    $page->setTpl("products");
 });
 
-$app->get('/product/:link', function($link) {
-    $tpl = new Page();
- 
-    $tpl->setTpl("product-details");
+$app->get('/product/:id_product', function($id_product) {
+    $page = new Page();
+    $product = new Product();
+    
+    $model = new Model();
+    $model->setData($product->selectProduct($id_product));
+    $sample = new Model($product->selectProductSample($id_product));
+    $sample->setData($product->selectProductSample($id_product));
+    
+    
+    $brand = new Model();
+    $brand->setData(Admin::listAllBrand());
+
+    $result = $product->nameBrand($id_product);
+
+
+    $page->setTpl("product-details",[
+        "product" => $model->getValues(),
+        "sample" => $sample->getValues(),
+        "brand" => $brand->getValues(),
+        "p" => $result
+    ]);
 });
+
+$app->post('/product/:id_product/add', function($id_product) {
+    $page = new Page();
+ 
+    $page->setTpl("products");
+});
+
