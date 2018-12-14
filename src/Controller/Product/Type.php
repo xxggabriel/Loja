@@ -12,11 +12,11 @@ class Type extends Crud{
 
     public function createType($data = array()){
 
-        $this->setName($data["name"]);
+        $this->setName($data["name_type"]);
         $this->setDescription($data["description"]);
 
         $result = $this->create("tb_type",[
-            "name" => $this->getName(),
+            "name_type" => $this->getName(),
             "description" => $this->getDescription()
         ]);
         
@@ -31,7 +31,7 @@ class Type extends Crud{
 
     }
 
-    public function selectAllType($colunms = "*", $where = "1 = 1"){
+    public function selectAllType($colunms = "*", $where = "1 = 1 AND status > 0"){
 
         return $this->read("tb_type", $colunms,$where);
 

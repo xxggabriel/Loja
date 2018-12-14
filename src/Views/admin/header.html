@@ -263,7 +263,7 @@ desired effect
         <li class="active"><a href="/admin/products"><i class="fa fa-link"></i> <span>Produtos</span></a></li>
         <li><a href="/admin/providers"><i class="fa fa-link"></i> <span>Fornecedores</span></a></li>
         <li><a href="/admin/brands"><i class="fa fa-link"></i> <span>Marcas</span></a></li>
-        <li><a href="/admin/type"><i class="fa fa-link"></i> <span>Tipos de Produtos</span></a></li>
+        <li><a href="/admin/types"><i class="fa fa-link"></i> <span>Tipos de Produtos</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>

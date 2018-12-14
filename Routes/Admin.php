@@ -145,25 +145,27 @@ $app->get("/admin/product/:id_product", function($id_product){
     
     $model = new Model();
     $model->setData($product);
-    $model->setData($provider);
+    $model->setData($type);
     $model->setData($brand);
-    // var_dump([Admin::listAllProvider()]);
+    $model->setData($provider);
+
+    $providers = new Model();
+    $providers->setData(Admin::listAllProviders());
+
+    $brands = new Model();
+    $brands->setData(Admin::listAllBrand());
+
+    $types = new Model();
+    $types->setData(Admin::listAllType());
+    
+    // var_dump($model->getValues());exit;
     $page = new PageAdmin();
     $page->setTpl("product-update",[
 
-        "product" => [
-            "id_product" => $model->getid_product(),      
-            "name_product" => $model->getname_product(),
-            "value" => $model->getvalue(),
-            "value_cost" => $model->getvalue_cost(),
-            "amount" => $model->getamount(),
-            "id_provider" => $model->getid_provider(),
-            "id_brand" => $model->getid_brand(),
-            "id_type" => $model->getid_type()
-        ],
-        "provider" =>[
-            Admin::listAllProvider()
-        ]
+        "product" => $model->getValues(),
+        "provider" => $providers->getValues(),
+        "brand" => $brands->getValues(),
+        "type"=> $types->getValues()
 
     ]);
 
@@ -171,7 +173,7 @@ $app->get("/admin/product/:id_product", function($id_product){
 
 $app->post("/admin/product/:id_product", function($id_product){
     Admin::verifyLoginAdmin();
-
+    // var_dump($_POST);exit;
     Admin::updateProductAdmin($_POST,$id_product);
 
 });
@@ -277,16 +279,78 @@ $app->post('/admin/provider/:id_provider', function($id_provider) {
 $app->get('/admin/brands', function() {
     Admin::verifyLoginAdmin();
     $page = new PageAdmin();
-    $page->setTpl("index");
+    $page->setTpl("brands",[
+        "brand" => Admin::listAllBrand()
+    ]);
+});
+
+$app->get('/admin/brand/create', function() {
+    Admin::verifyLoginAdmin();
+    $page = new PageAdmin();
+    $page->setTpl("brand-create");
+});
+
+$app->post('/admin/brand/create', function() {
+    Admin::verifyLoginAdmin();
+    Admin::createBrandAdmin($_POST);
+});
+
+$app->get('/admin/brand/:id_brand/delete', function($id_brand) {
+    Admin::verifyLoginAdmin();
+    Admin::deleteBrandAdmin($id_brand);
+});
+
+$app->get('/admin/brand/:id_brand', function($id_brand) {
+    Admin::verifyLoginAdmin();
+    $page = new PageAdmin();
+    $page->setTpl("brand-update",[
+        "brand" => Admin::listBrand($id_brand)
+    ]);
+});
+
+$app->post('/admin/brand/:id_brand', function($id_brand) {
+    Admin::verifyLoginAdmin();
+    Admin::updateBrandAdmin($_POST,$id_brand);
 });
 
 
 // Type
-$app->get('/admin/type', function() {
+$app->get('/admin/types', function() {
     Admin::verifyLoginAdmin();
     $page = new PageAdmin();
-    $page->setTpl("index");
+    $page->setTpl("types",[
+        "type" => Admin::listAllType()
+    ]);
 });
 
+$app->get('/admin/type/create', function() {
+    Admin::verifyLoginAdmin();
+    $page = new PageAdmin();
+    $page->setTpl("type-create");
+});
+
+$app->post('/admin/type/create', function() {
+    Admin::verifyLoginAdmin();
+    Admin::createTypeAdmin($_POST);
+});
+
+$app->get('/admin/type/:id_type/delete', function($id_type){
+    Admin::verifyLoginAdmin();
+    Admin::deleteTypeAdmin($id_type);
+});
+
+
+$app->get('/admin/type/:id_type', function($id_type) {
+    Admin::verifyLoginAdmin();
+    $page = new PageAdmin();
+    $page->setTpl("type-update",[
+        "type" => Admin::listType($id_type)
+    ]);
+});
+
+$app->post('/admin/type/:id_type', function($id_type) {
+    Admin::verifyLoginAdmin();
+    Admin::updateTypeAdmin($id_type, $_POST);
+});
 
 // end Type

@@ -96,7 +96,7 @@ class Admin extends User{
 
     public static function updateBrandAdmin($data = array(),$id_brand, $route = "/admin/brands"){
         $brand = new Brand();
-        $brand->updateBrand($data,$id_brand);
+        $brand->updateBrand($id_brand,$data);
         header("Location: $route");
         exit;
     }
@@ -151,6 +151,20 @@ class Admin extends User{
         header("Location: $route");
         exit;
     } 
+
+    public static function deleteBrandAdmin($id_brand, $route = "/admin/brands"){
+        $brand = new Brand();
+        $brand->deleteBrand($id_brand);
+        header("location: $route");
+        exit;
+    }
+
+    public static function deleteTypeAdmin($id_type, $route = "/admin/types"){
+        $type = new Type();
+        $type->deletetype($id_type);
+        header("location: $route");
+        exit;
+    }
 
     public static function savePhoto($data){
         $uploaddir = $_SERVER["DOCUMENT_ROOT"].'/resource/upload/';

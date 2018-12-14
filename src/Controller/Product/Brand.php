@@ -12,10 +12,10 @@ class Brand extends Crud{
 
     public function createBrand($data = array()){
 
-        $this->setName($data["name"]);
+        $this->setName($data["name_brand"]);
 
         $result = $this->create("tb_brand",[
-            "name" => $this->getName()
+            "name_brand" => $this->getName()
         ]);
         
         if(!$result){
@@ -29,7 +29,7 @@ class Brand extends Crud{
 
     }
 
-    public function selectAllBrand($colunms = "*", $where = "1 = 1"){
+    public function selectAllBrand($colunms = "*", $where = "1 = 1 AND status > 0"){
 
         return $this->read("tb_brand", $colunms,$where);
 
