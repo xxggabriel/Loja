@@ -42,11 +42,11 @@ class Product extends Crud{
 
     public function selectProduct($id_product,$colunms = "*"){
 
-        $result = $this->read("tb_product", $colunms, "id_product = $id_product AND status > 0");
+        $result = $this->read("tb_product", $colunms, "id_product = $id_product AND status_product > 0");
         if(!empty($result)){
             return $result[0];
         } else {
-            return [];
+           ExceptionProduct::productIdNotFound();
         }
 
     }
@@ -92,7 +92,7 @@ class Product extends Crud{
         if(!empty($result)){
             return $result[0];
         } else {
-            return [NULL];
+            ExceptionProduct::productIdNotFound;
         }
 
     }

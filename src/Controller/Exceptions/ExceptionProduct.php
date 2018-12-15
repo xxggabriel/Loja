@@ -8,6 +8,10 @@ class ExceptionProduct{
         throw new \Exception("Id do fornecedor, não é valido");
     } 
 
+    public static function productIdNotFound(){
+        throw new \Exception("Id do produto, não é valido");
+    } 
+
     public static function brandIdNotFound(){
         throw new \Exception("Id da marca, não é valido");
     } 

@@ -243,7 +243,7 @@ class Admin extends User{
     public static function listProduct($id_product){
         $product = new Product();
         $result = $product->selectProduct($id_product);
-        return $result[0];
+        return $result;
     }
 
 
