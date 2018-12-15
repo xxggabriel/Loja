@@ -64,7 +64,7 @@ class Admin extends User{
         header("Location: $route");
         exit;
 
-    }
+    } 
 
     public static function createProductAdmn($data = array(), $route = "/admin/products"){
         $product = new Product();
@@ -253,6 +253,21 @@ class Admin extends User{
         $product = new Product();
         $result = $product->selectProduct($id_product);
         return $result;
+    }
+
+    public function listAdmin(){
+        $user = $this->listAllUser();
+        $product = $this->listAllProduct();
+
+
+        return [
+            "user" => count($user),
+            "product" => count($product),
+            "sale",
+            "profit"
+        ];
+
+         
     }
 
 

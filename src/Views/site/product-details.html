@@ -176,7 +176,7 @@
 										Comprar
 									</button>
 								</span>
-								<p><b>Disponibilidade:</b> {if="$product.amount > 10"}em estou{elseif="$product.amount === 0"}em falta{else}{$product.amount}{/if}</p>
+								<p><b>Disponibilidade:</b> {if="$product.amount > 10"}em estou{elseif="$product.amount == 0"}em falta{else}{$product.amount}{/if}</p>
 								<p><b>Marca:</b>  {if="!empty($p.name_brand)"}{$p.name_brand}{else}Sem marca{/if} </p>
 								
 							</div><!--/product-information-->

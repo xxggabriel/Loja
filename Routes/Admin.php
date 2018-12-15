@@ -7,8 +7,10 @@ use Model\Model;
 $app->get('/admin', function() {
 Admin::verifyLoginAdmin("/admin");
 $page = new PageAdmin();
-
-$page->setTpl("index");
+$admin = new Admin();
+$page->setTpl("index",[
+    "admin" => $admin->listAdmin()
+]);
 
 });
 

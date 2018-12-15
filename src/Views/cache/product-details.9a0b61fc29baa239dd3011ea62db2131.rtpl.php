@@ -176,7 +176,7 @@
 										Comprar
 									</button>
 								</span>
-								<p><b>Disponibilidade:</b> <?php if( $product["amount"] > 10 ){ ?>em estou<?php }elseif( $product["amount"] === 0 ){ ?>em falta<?php }else{ ?><?php echo htmlspecialchars( $product["amount"], ENT_COMPAT, 'UTF-8', FALSE ); ?><?php } ?></p>
+								<p><b>Disponibilidade:</b> <?php if( $product["amount"] > 10 ){ ?>em estou<?php }elseif( $product["amount"] == 0 ){ ?>em falta<?php }else{ ?><?php echo htmlspecialchars( $product["amount"], ENT_COMPAT, 'UTF-8', FALSE ); ?><?php } ?></p>
 								<p><b>Marca:</b>  <?php if( !empty($p["name_brand"]) ){ ?><?php echo htmlspecialchars( $p["name_brand"], ENT_COMPAT, 'UTF-8', FALSE ); ?><?php }else{ ?>Sem marca<?php } ?> </p>
 								
 							</div><!--/product-information-->
