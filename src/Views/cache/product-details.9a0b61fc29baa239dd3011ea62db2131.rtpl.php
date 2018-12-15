@@ -168,7 +168,7 @@
 								<img src="/resource/site/images/product-details/rating.png" alt="" />
 								<form action="/product/{product.id_product}/add" method="post"></form>
 								<span>
-									<span>R$ <?php echo htmlspecialchars( $product["value"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
+									<span><?php if( $product["value"] ){ ?>R$ <?php echo htmlspecialchars( $product["value"], ENT_COMPAT, 'UTF-8', FALSE ); ?> <?php }else{ ?> Sem Preço<?php } ?></span>
 									<label>Quantidade:</label>
 									<input type="text" value="1" name="amount" />
 									<button type="button" class="btn btn-fefault cart">
@@ -177,7 +177,7 @@
 									</button>
 								</span>
 								<p><b>Disponibilidade:</b> <?php if( $product["amount"] > 10 ){ ?>em estou<?php }elseif( $product["amount"] === 0 ){ ?>em falta<?php }else{ ?><?php echo htmlspecialchars( $product["amount"], ENT_COMPAT, 'UTF-8', FALSE ); ?><?php } ?></p>
-								<p><b>Marca:</b>  <?php if( empty($p["name_brand"]) ){ ?><?php echo htmlspecialchars( $p["name_brand"], ENT_COMPAT, 'UTF-8', FALSE ); ?><?php }else{ ?>Sem marca<?php } ?> </p>
+								<p><b>Marca:</b>  <?php if( !empty($p["name_brand"]) ){ ?><?php echo htmlspecialchars( $p["name_brand"], ENT_COMPAT, 'UTF-8', FALSE ); ?><?php }else{ ?>Sem marca<?php } ?> </p>
 								
 							</div><!--/product-information-->
 						</div>

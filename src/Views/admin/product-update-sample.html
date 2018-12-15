@@ -33,7 +33,7 @@
                     
                     <div class="form-group">
                       <label for="link">link</label>
-                      <input type="text" pattern="^[a-zA-Z_\-]+$" required  class="form-control" id="link" value='{if="!empty($product.link)"}{$product.link}{/if}' name="link" placeholder="Link do produto">
+                      <input type="text"  class="form-control" id="link" value='{if="!empty($product.link)"}{$product.link}{/if}' name="link" placeholder="Link do produto">
                     </div>
                     <div class="form-group">
                       <label for="photo">Foto do produto</label>
@@ -42,7 +42,7 @@
                     <img src='{if="!empty($product.photo)"} {$product.photo} {/if}' height="300px">
                     <div class="form-group">
                         <label for="description">Descrição</label>
-                        <textarea type="text" class="form-control"  rows="5" name="description"  placeholder="Digite a descrição do produto">{if="!empty($product.description)"}{$product.description}{/if}</textarea>
+                        <textarea type="text" class="form-control"  rows="10" name="description"  placeholder="Digite a descrição do produto">{if="!empty($product.description)"}{$product.description}{/if}</textarea>
                     </div>
                     
                   </div>

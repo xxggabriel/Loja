@@ -33,7 +33,7 @@
                     
                     <div class="form-group">
                       <label for="link">link</label>
-                      <input type="text" pattern="^[a-zA-Z_\-]+$" required  class="form-control" id="link" value='<?php if( !empty($product["link"]) ){ ?><?php echo htmlspecialchars( $product["link"], ENT_COMPAT, 'UTF-8', FALSE ); ?><?php } ?>' name="link" placeholder="Link do produto">
+                      <input type="text"  class="form-control" id="link" value='<?php if( !empty($product["link"]) ){ ?><?php echo htmlspecialchars( $product["link"], ENT_COMPAT, 'UTF-8', FALSE ); ?><?php } ?>' name="link" placeholder="Link do produto">
                     </div>
                     <div class="form-group">
                       <label for="photo">Foto do produto</label>
@@ -42,7 +42,7 @@
                     <img src='<?php if( !empty($product["photo"]) ){ ?> <?php echo htmlspecialchars( $product["photo"], ENT_COMPAT, 'UTF-8', FALSE ); ?> <?php } ?>' height="300px">
                     <div class="form-group">
                         <label for="description">Descrição</label>
-                        <textarea type="text" class="form-control"  rows="5" name="description"  placeholder="Digite a descrição do produto"><?php if( !empty($product["description"]) ){ ?><?php echo htmlspecialchars( $product["description"], ENT_COMPAT, 'UTF-8', FALSE ); ?><?php } ?></textarea>
+                        <textarea type="text" class="form-control"  rows="10" name="description"  placeholder="Digite a descrição do produto"><?php if( !empty($product["description"]) ){ ?><?php echo htmlspecialchars( $product["description"], ENT_COMPAT, 'UTF-8', FALSE ); ?><?php } ?></textarea>
                     </div>
                     
                   </div>

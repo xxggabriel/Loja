@@ -80,6 +80,27 @@ class Product extends Crud{
 
     }
 
+    public function updateProductSample($data = array(), $id_product){
+        if(!empty($data["photo"])){
+
+            $this->update("tb_product_sample",[
+                "id_product" => $data["id_product"],
+                "title" => $data["title"],
+                "description" => $data["description"],
+                "photo" => $data["photo"],
+                "link" => $data["link"]
+            ], "id_product = $id_product");
+        } else {
+            $this->update("tb_product_sample",[
+                "id_product" => $data["id_product"],
+                "title" => $data["title"],
+                "description" => $data["description"],
+                "link" => $data["link"]
+            ], "id_product = $id_product");
+        }
+
+    }
+
     public function selectAllProductsSample(){
 
         return $this->read("tb_product_sample", "*");
@@ -92,7 +113,7 @@ class Product extends Crud{
         if(!empty($result)){
             return $result[0];
         } else {
-            ExceptionProduct::productIdNotFound;
+            return [];
         }
 
     }
@@ -108,6 +129,15 @@ class Product extends Crud{
             return $page->setTpl("404-product");
     
     } 
+
+    public function listAllProduct(){
+
+        return $this->query(
+        "SELECT tb_product.*, tb_product_sample.photo
+        FROM tb_product
+        INNER JOIN tb_product_sample ON tb_product.id_product = tb_product_sample.id_product;");
+
+    }
 
     // GETs and SETs
 

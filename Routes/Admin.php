@@ -205,11 +205,20 @@ $app->get("/admin/product/sample/:id_product", function($id_product){
 
 $app->post("/admin/product/sample/:id_product", function($id_product){
     
-    $result = Admin::savePhoto($_FILES["photo"]);
-    $_POST["id_product"] = $id_product;
-    $_POST["photo"] = $result;
-    
-    Admin::createProductSampleAdmin($_POST);
+    if(empty(Admin::listProductSample($id_product))){
+
+        $result = Admin::savePhoto($_FILES["photo"]);
+        $_POST["id_product"] = $id_product;
+        $_POST["photo"] = $result;
+        
+        Admin::createProductSampleAdmin($_POST);
+    }else {
+        $result = Admin::savePhoto($_FILES["photo"]);
+        $_POST["id_product"] = $id_product;
+        $_POST["photo"] = $result;
+        
+        Admin::updateProductSampleAdmin($_POST, $id_product);
+    }
 
 
 

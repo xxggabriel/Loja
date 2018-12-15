@@ -156,8 +156,10 @@
                         <div class="product-image-wrapper">
                             <div class="single-products">
                                 <div class="productinfo text-center">
-                                    
-                                    <img src='<?php if( $sample["id_product"] ==  $value1["id_product"] ){ ?><?php echo htmlspecialchars( $sample["photo"], ENT_COMPAT, 'UTF-8', FALSE ); ?><?php } ?>' alt="" />
+                                    <div style="height: 300px; width: 255px;">
+
+                                        <img src='<?php echo htmlspecialchars( $value1["photo"], ENT_COMPAT, 'UTF-8', FALSE ); ?>' width="100%" height="100%" />
+                                    </div>
                                     
                                     <h2><?php echo htmlspecialchars( $value1["value"], ENT_COMPAT, 'UTF-8', FALSE ); ?></h2>
                                     <p><?php echo htmlspecialchars( $value1["name_product"], ENT_COMPAT, 'UTF-8', FALSE ); ?></p>

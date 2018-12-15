@@ -8,15 +8,12 @@ $app->get('/products', function() {
     $page = new Page();
     
     $model = new Model();
-    $sample = new Model();
     $products = new Product();
 
-    $sample->setData($products->selectAllProductsSample());
-    $model->setData($products->selectAllProducts());
+    $model->setData($products->listAllProduct());
 
     $page->setTpl("products",[
-        "products" => $model->getValues(),
-        "sample" => $sample->getValues()
+        "products" => $model->getValues()
     ]);
 });
 
@@ -29,6 +26,7 @@ $app->get('/product/:id_product', function($id_product) {
     } 
     $model = new Model();
     $model->setData($product->selectProduct($id_product));
+    
     $sample = new Model($product->selectProductSample($id_product));
     $sample->setData($product->selectProductSample($id_product));
     

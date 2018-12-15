@@ -57,6 +57,15 @@ class Admin extends User{
 
     }
 
+    public static function updateProductSampleAdmin($data = array(), $id_product, $route = "/admin/products"){
+
+        $product = new Product();
+        $product->updateProductSample($data, $id_product);
+        header("Location: $route");
+        exit;
+
+    }
+
     public static function createProductAdmn($data = array(), $route = "/admin/products"){
         $product = new Product();
         $product->createProduct($data);
