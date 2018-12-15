@@ -140,10 +140,10 @@ abstract class Crud extends Model implements CrudInterface{
             }
     }
 
-    public function query($query){
+    public function query($query, $params = []){
 
         $sql = new Sql();
-        $results = $sql->select($query);
+        $results = $sql->select($query, $params);
         return $results;
 
     }

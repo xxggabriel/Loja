@@ -119,9 +119,14 @@ class Product extends Crud{
     }
 
     public function nameBrand($id_product){
-        $id_brand = $this->read("tb_product", "id_brand", "id_product = $id_product");
-        $id_brand = $id_brand[0]["id_brand"];
-        $result = $this->read("tb_brand", "name_brand", "id_brand = $id_brand");
+        $result = $this->query(
+        "SELECT tb_product.*, tb_brand.name_brand
+        FROM tb_product
+        INNER JOIN tb_brand ON tb_brand.id_brand = tb_product.id_brand
+        WHERE tb_product.id_product = :id_product;
+        ",[
+            ":id_product" => $id_product
+        ]);
         return $result[0];
     } 
 

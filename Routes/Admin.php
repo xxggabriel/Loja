@@ -145,9 +145,6 @@ $app->get("/admin/product/:id_product", function($id_product){
     
     $model = new Model();
     $model->setData($product);
-    $model->setData($type);
-    $model->setData($brand);
-    $model->setData($provider);
 
     $providers = new Model();
     $providers->setData(Admin::listAllProviders());

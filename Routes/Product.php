@@ -41,7 +41,7 @@ $app->get('/product/:id_product', function($id_product) {
         "product" => $model->getValues(),
         "sample" => $sample->getValues(),
         "brand" => $brand->getValues(),
-        "p" => $result
+        "p" => $result 
     ]);
 });
 
