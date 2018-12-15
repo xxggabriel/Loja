@@ -168,7 +168,7 @@
 								<img src="/resource/site/images/product-details/rating.png" alt="" />
 								<form action="/product/{product.id_product}/add" method="post"></form>
 								<span>
-									<span>R$ {$product.value}</span>
+									<span>{if="$product.value"}R$ {$product.value} {else} Sem Preço{/if}</span>
 									<label>Quantidade:</label>
 									<input type="text" value="1" name="amount" />
 									<button type="button" class="btn btn-fefault cart">

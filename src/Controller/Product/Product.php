@@ -42,8 +42,12 @@ class Product extends Crud{
 
     public function selectProduct($id_product,$colunms = "*"){
 
-        $result = $this->read("tb_product", $colunms, "id_product = $id_product");
-        return $result[0];
+        $result = $this->read("tb_product", $colunms, "id_product = $id_product AND status > 0");
+        if(!empty($result)){
+            return $result[0];
+        } else {
+            return [];
+        }
 
     }
 
@@ -84,7 +88,7 @@ class Product extends Crud{
 
     public function selectProductSample($id_product, $colunm = "*"){
 
-        $result = $this->read("tb_product_sample",$colunm,  "id_product = $id_product");
+        $result = $this->read("tb_product_sample",$colunm,  "id_product = $id_product AND status > 0");
         if(!empty($result)){
             return $result[0];
         } else {
@@ -98,6 +102,11 @@ class Product extends Crud{
         $id_brand = $id_brand[0]["id_brand"];
         $result = $this->read("tb_brand", "name_brand", "id_brand = $id_brand");
         return $result[0];
+    } 
+
+    public static function pageNotFound($page){
+            return $page->setTpl("404-product");
+    
     } 
 
     // GETs and SETs

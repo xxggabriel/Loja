@@ -13,7 +13,10 @@ $app->get('/products', function() {
 $app->get('/product/:id_product', function($id_product) {
     $page = new Page();
     $product = new Product();
-    
+    if(empty($product->selectProduct($id_product))){
+        Product::pageNotFound($page);
+        exit;
+    } 
     $model = new Model();
     $model->setData($product->selectProduct($id_product));
     $sample = new Model($product->selectProductSample($id_product));
