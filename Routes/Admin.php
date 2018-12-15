@@ -186,7 +186,7 @@ $app->get("/admin/product/sample/:id_product", function($id_product){
     $model->setData($result);
 
     $page = new PageAdmin();
-    if(empty($model->getValues()[0])){
+    if(empty($model->getValues())){
         
         $page->setTpl("product-update-sample",[
             "product" => [
@@ -196,7 +196,7 @@ $app->get("/admin/product/sample/:id_product", function($id_product){
     } else{
         
         $page->setTpl("product-update-sample",[
-            "product" => $model->getValues()[0]
+            "product" => $model->getValues()
         ]);
     }
 

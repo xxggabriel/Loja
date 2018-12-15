@@ -6,8 +6,18 @@ use Controller\Product\Product;
 use Controller\User\Admin;
 $app->get('/products', function() {
     $page = new Page();
- 
-    $page->setTpl("products");
+    
+    $model = new Model();
+    $sample = new Model();
+    $products = new Product();
+
+    $sample->setData($products->selectAllProductsSample());
+    $model->setData($products->selectAllProducts());
+
+    $page->setTpl("products",[
+        "products" => $model->getValues(),
+        "sample" => $sample->getValues()
+    ]);
 });
 
 $app->get('/product/:id_product', function($id_product) {
