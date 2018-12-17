@@ -1,8 +1,9 @@
-	
+<?php if(!class_exists('Rain\Tpl')){exit;}?>	
 				<div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">Features Items</h2>
-						{loop="$products"}
+						<?php $counter1=-1;  if( isset($products) && ( is_array($products) || $products instanceof Traversable ) && sizeof($products) ) foreach( $products as $key1 => $value1 ){ $counter1++; ?>
+
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
@@ -24,7 +25,8 @@
 								</div>
 							</div>
 						</div>
-						{/loop}
+						<?php } ?>
+
 						
 					</div>
 				</div>

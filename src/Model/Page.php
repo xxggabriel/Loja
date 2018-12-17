@@ -34,10 +34,13 @@ class Page{
         }
     }
 
-    public function setTpl($tpl, $data = array()){
+    public function setTpl($tpl, $data = array(), $sidebar = true){
 
         $this->setVariables($data);
 
+        if($sidebar){
+            $this->tpl->draw("sidebar");
+        }
         $this->tpl->draw($tpl);
 
     }

@@ -4,8 +4,8 @@ namespace Model\DB;
 
 class Sql {
 	const HOSTNAME = "localhost";
-	const USERNAME = "root";
-	const PASSWORD = "";
+	const USERNAME = "gabriel";
+	const PASSWORD = "root";
 	const DBNAME = "db_loja";
 	private $conn;
 	

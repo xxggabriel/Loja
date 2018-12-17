@@ -8,12 +8,13 @@ $app->notFound(function(){
         "header" => false,
         "footer" => false
     ]);
-    $page->setTpl("404");
+    $page->setTpl("404",[],false);
 });
 
 $app->get('/', function() {
     $page = new Page();
- 
+    
+    $page->setTpl("slider", [],false);
     $page->setTpl("index");
 });
 
@@ -45,7 +46,7 @@ $app->get('/contact', function() {
 
     $page = new Page();
  
-    $page->setTpl("contact");
+    $page->setTpl("contact",[],false);
 
 });
 

@@ -160,7 +160,7 @@ $app->get("/admin/product/:id_product", function($id_product){
     // var_dump($model->getValues());exit;
     $page = new PageAdmin();
     $page->setTpl("product-update",[
-
+ 
         "product" => $model->getValues(),
         "provider" => $providers->getValues(),
         "brand" => $brands->getValues(),
