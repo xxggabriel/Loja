@@ -32,19 +32,17 @@
 					<div class="col-sm-6">
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
-								<li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+								<li><a href="#"><i class="fa fa-phone"></i>62 9 9478-8555</a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i> programador.gabrieloliveira@gmail.com</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="social-icons pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-								<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+								<li><a href="https://www.facebook.com/programaremcasa/notifications/"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="https://twitter.com/xxggabriel"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="https://www.linkedin.com/in/gabrieloliveiradesouza/"><i class="fa fa-linkedin"></i></a></li>
 							</ul>
 						</div>
 					</div>
@@ -62,23 +60,23 @@
 						<div class="btn-group pull-right clearfix">
 							<div class="btn-group">
 								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-									USA
+									Brasil
 									<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu">
-									<li><a href="">Canada</a></li>
-									<li><a href="">UK</a></li>
+									<li><a href="">Brasil</a></li>
+									<li><a href="">U.S</a></li>
 								</ul>
 							</div>
 							
 							<div class="btn-group">
 								<button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-									DOLLAR
+									Real
 									<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu">
-									<li><a href="">Canadian Dollar</a></li>
-									<li><a href="">Pound</a></li>
+									<li><a href="">Real</a></li>
+									<li><a href="">Dollar</a></li>
 								</ul>
 							</div>
 						</div>
@@ -86,9 +84,8 @@
 					<div class="col-md-8 clearfix">
 						<div class="shop-menu clearfix pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a href=""><i class="fa fa-star"></i> Lista de Desejos</a></li>
+								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
 								<?php if( empty($_SESSION['logged_user']) ){ ?><li><a href="/login"><i class="fa fa-lock"></i> Login</a></li><?php }elseif( empty($_SESSION['logged_user']) ){ ?><li><a href="/login"><i class="fa fa-lock"></i> Admin</a></li><?php }else{ ?><li><a href="/account"><i class="fa fa-user"></i> Minha Conta</a></li><?php } ?>
 
 							</ul>
@@ -115,13 +112,10 @@
 								<li><a href="/" class="active">Home</a></li>
                             	<li><a href="/products">Produtos</a></li>     
                                 </li> 
-								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Blog List</a></li>
-										<li><a href="blog-single.html">Blog Single</a></li>
-                                    </ul>
-                                </li> 
-								<li><a href="/contact">Contact</a></li>
+								<li class="dropdown">
+									<a href="#">Blog</a>
+								</li> 
+								<li><a href="/contact">Contato</a></li>
 							</ul>
 						</div>
 					</div>
