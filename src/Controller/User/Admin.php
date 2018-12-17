@@ -77,7 +77,7 @@ class Admin extends User{
 
         $provider = new Provider();
         $provider->createProvider($data);
-        header($route);
+        header("Location: $route");
         exit;
 
     }

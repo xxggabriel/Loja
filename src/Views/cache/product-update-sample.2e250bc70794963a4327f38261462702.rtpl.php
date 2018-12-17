@@ -41,9 +41,20 @@
                       <input type="file" class="form-control-file" id="photo"  name="photo" >
                     </div>
                     <img src='<?php if( !empty($product["photo"]) ){ ?> <?php echo htmlspecialchars( $product["photo"], ENT_COMPAT, 'UTF-8', FALSE ); ?> <?php } ?>' height="300px">
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="description">Descrição</label>
                         <textarea type="text" class="form-control"  rows="10" name="description"  placeholder="Digite a descrição do produto"><?php if( !empty($product["description"]) ){ ?><?php echo htmlspecialchars( $product["description"], ENT_COMPAT, 'UTF-8', FALSE ); ?><?php } ?></textarea>
+                    </div> -->
+
+  
+                    <div class="box-body pad">
+                        
+                              <textarea id="editor1" name="description" rows="10" cols="80">
+                                  <?php if( !empty($product["description"]) ){ ?><?php echo htmlspecialchars( $product["description"], ENT_COMPAT, 'UTF-8', FALSE ); ?><?php } ?>
+
+                              </textarea>
+                        
+                      </div>
                     </div>
                     
                   </div>

@@ -40,9 +40,19 @@
                       <input type="file" class="form-control-file" id="photo"  name="photo" >
                     </div>
                     <img src='{if="!empty($product.photo)"} {$product.photo} {/if}' height="300px">
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="description">Descrição</label>
                         <textarea type="text" class="form-control"  rows="10" name="description"  placeholder="Digite a descrição do produto">{if="!empty($product.description)"}{$product.description}{/if}</textarea>
+                    </div> -->
+
+  
+                    <div class="box-body pad">
+                        
+                              <textarea id="editor1" name="description" rows="10" cols="80">
+                                  {if="!empty($product.description)"}{$product.description}{/if}
+                              </textarea>
+                        
+                      </div>
                     </div>
                     
                   </div>
