@@ -63,10 +63,7 @@ class Provider extends Crud{
     public function setPhone($phone)
     {
 
-        // Retirar todos os caracters do numero
-        $phone = str_replace(["(",")","-"," ", "+"], "", $phone);
-        $this->phone = $phone;
-
+            $this->phone = $phone;
         
     }
 

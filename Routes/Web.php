@@ -22,7 +22,7 @@ $app->get('/', function() {
 $app->get('/login', function() {
     $page = new Page();
     User::logoutUser(false);
-    $page->setTpl("login");
+    $page->setTpl("login",[], false);
 });
 
 $app->post('/login', function() {

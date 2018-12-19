@@ -21,7 +21,7 @@ $app->get('/login/admin', function() {
         "footer" => false
     ]);
     
-    $page->setTpl("login");
+    $page->setTpl("login",[],false);
     
 });
 

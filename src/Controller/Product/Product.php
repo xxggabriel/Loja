@@ -131,7 +131,7 @@ class Product extends Crud{
     } 
 
     public static function pageNotFound($page){
-            return $page->setTpl("404-product");
+            return $page->setTpl("404-product",[],false);
     
     } 
 

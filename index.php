@@ -17,6 +17,3 @@ require_once("Routes/Account.php");
 require_once("Routes/Admin.php");
 
 $app->run();
- 
-
-
