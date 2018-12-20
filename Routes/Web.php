@@ -20,6 +20,7 @@ $app->get('/', function() {
 
 
 $app->get('/login', function() {
+    User::logoutUser();
     $page = new Page();
     User::logoutUser(false);
     $page->setTpl("login",[], false);
