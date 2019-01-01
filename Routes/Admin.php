@@ -338,7 +338,7 @@ $app->group('/admin', function() use($app){
 
 
     // Type
-    $app->group('/type', function() use($app){
+    $app->group('/type  ', function() use($app){
 
         $app->get('/', function() {
             Admin::verifyLoginAdmin();
