@@ -26,20 +26,24 @@
                     <div class="form-group">
                       <label for="provider">Fornecedor</label>
                       <select class="form-control" name="id_provider" id="provider">
+                        
+                        <?php $counter1=-1;  if( isset($options["provider"]) && ( is_array($options["provider"]) || $options["provider"] instanceof Traversable ) && sizeof($options["provider"]) ) foreach( $options["provider"] as $key1 => $value1 ){ $counter1++; ?>
 
-                          <?php if( empty($product["id_provider"]) ){ ?>
+                        <?php if( empty($options["provider"]) ){ ?>
 
-                          <option value="NULL">Sem marca</option>
+                          <option value="NULL">Sem Fornecedor</option>
                           <?php }else{ ?>
 
-                          <option value="<?php echo htmlspecialchars( $product["id_provider"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php $k = $product["id_provider"] - 1; ?><?php echo htmlspecialchars( $provider["$k"]["name_provider"], ENT_COMPAT, 'UTF-8', FALSE ); ?> </option>
+                          <option value="<?php echo htmlspecialchars( $value1["id_provider"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["name_provider"], ENT_COMPAT, 'UTF-8', FALSE ); ?> </option>
                           <?php } ?>
 
-                        
-                        <?php $counter1=-1;  if( isset($provider) && ( is_array($provider) || $provider instanceof Traversable ) && sizeof($provider) ) foreach( $provider as $key1 => $value1 ){ $counter1++; ?>
+                          
+                          <?php } ?>
 
-                        <option value='<?php if( !empty($provider) ){ ?><?php echo htmlspecialchars( $value1["id_provider"], ENT_COMPAT, 'UTF-8', FALSE ); ?><?php }else{ ?>NULL<?php } ?>'><?php if( !empty($provider) ){ ?><?php echo htmlspecialchars( $value1["name_provider"], ENT_COMPAT, 'UTF-8', FALSE ); ?><?php }else{ ?>Sem fornecedor<?php } ?></option>                    
-                        <?php } ?>
+                          <?php if( !empty($options["provider"]) ){ ?>
+
+                          <option value="NULL">Sem Fornecedor</option>
+                          <?php } ?>
 
                         
                       </select>
@@ -48,20 +52,25 @@
                     <div class="form-group">
                       <label for="brand">Marca</label>
                       <select class="form-control" name="id_brand" id="brand">
-                        <?php if( empty($product["id_brand"]) ){ ?>
+                        <?php $counter1=-1;  if( isset($options["brand"]) && ( is_array($options["brand"]) || $options["brand"] instanceof Traversable ) && sizeof($options["brand"]) ) foreach( $options["brand"] as $key1 => $value1 ){ $counter1++; ?>
+
+                        <?php if( empty($options["brand"]) ){ ?>
+
+                          <option value="NULL">Sem marca</option>
+                          <?php }else{ ?>
+
+                          <option value="<?php echo htmlspecialchars( $value1["id_brand"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["name_brand"], ENT_COMPAT, 'UTF-8', FALSE ); ?> </option>
+                          <?php } ?>
+
+                        
+                        <?php } ?>
+
+                        <?php if( !empty($options["brand"]) ){ ?>
 
                         <option value="NULL">Sem marca</option>
-                        <?php }else{ ?>
-
-                        <option value="<?php echo htmlspecialchars( $product["id_brand"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php $k = $product["id_brand"] - 1; ?><?php echo htmlspecialchars( $brand["$k"]["name_brand"], ENT_COMPAT, 'UTF-8', FALSE ); ?> </option>
                         <?php } ?>
 
-                        <?php $counter1=-1;  if( isset($brand) && ( is_array($brand) || $brand instanceof Traversable ) && sizeof($brand) ) foreach( $brand as $key1 => $value1 ){ $counter1++; ?>
 
-                        <option value="<?php echo htmlspecialchars( $value1["id_brand"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["name_brand"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>                    
-                        <?php } ?>
-
-                     
                       </select>
                     </div>
                     
@@ -69,17 +78,22 @@
                       <label for="type">Tipo</label>
                       <select class="form-control" name="id_type" id="type">
 
-                          <?php if( !empty($product["id_type"]) ){ ?>
+                        <?php $counter1=-1;  if( isset($options["type"]) && ( is_array($options["type"]) || $options["type"] instanceof Traversable ) && sizeof($options["type"]) ) foreach( $options["type"] as $key1 => $value1 ){ $counter1++; ?>
 
-                          <option value="<?php echo htmlspecialchars( $product["id_type"] , ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php $k = $product["id_type"] - 1; ?><?php echo htmlspecialchars( $type["$k"]["name_type"], ENT_COMPAT, 'UTF-8', FALSE ); ?> </option>
-                          <?php }else{ ?>
+                        <?php if( empty($options["type"]) ){ ?>
 
                           <option value="NULL">Sem tipo</option>
+                          <?php }else{ ?>
+
+                          <option value="<?php echo htmlspecialchars( $value1["id_type"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["name_type"], ENT_COMPAT, 'UTF-8', FALSE ); ?> </option>
                           <?php } ?>
 
-                        <?php $counter1=-1;  if( isset($type) && ( is_array($type) || $type instanceof Traversable ) && sizeof($type) ) foreach( $type as $key1 => $value1 ){ $counter1++; ?>
+                        
+                        <?php } ?>
 
-                        <option value="<?php echo htmlspecialchars( $value1["id_type"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["name_type"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>                    
+                        <?php if( !empty($options["type"]) ){ ?>
+
+                        <option value="NULL">Sem tipo</option>
                         <?php } ?>
 
                      

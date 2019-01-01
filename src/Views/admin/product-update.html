@@ -26,16 +26,18 @@
                     <div class="form-group">
                       <label for="provider">Fornecedor</label>
                       <select class="form-control" name="id_provider" id="provider">
-
-                          {if="empty($product.id_provider)"}
-                          <option value="NULL">Sem marca</option>
-                          {else}
-                          <option value="{$product.id_provider}">{$k = $product.id_provider - 1}{$provider.$k.name_provider} </option>
-                          {/if}
                         
-                        {loop="$provider"}
-                        <option value='{if="!empty($provider)"}{$value.id_provider}{else}NULL{/if}'>{if="!empty($provider)"}{$value.name_provider}{else}Sem fornecedor{/if}</option>                    
-                        {/loop}
+                        {loop="$options.provider"}
+                        {if="empty($options.provider)"}
+                          <option value="NULL">Sem Fornecedor</option>
+                          {else}
+                          <option value="{$value.id_provider}">{$value.name_provider} </option>
+                          {/if}
+                          
+                          {/loop}
+                          {if="!empty($options.provider)"}
+                          <option value="NULL">Sem Fornecedor</option>
+                          {/if}
                         
                       </select>
                     </div>
@@ -43,15 +45,18 @@
                     <div class="form-group">
                       <label for="brand">Marca</label>
                       <select class="form-control" name="id_brand" id="brand">
-                        {if="empty($product.id_brand)"}
-                        <option value="NULL">Sem marca</option>
-                        {else}
-                        <option value="{$product.id_brand}">{$k = $product.id_brand - 1}{$brand.$k.name_brand} </option>
-                        {/if}
-                        {loop="$brand"}
-                        <option value="{$value.id_brand}">{$value.name_brand}</option>                    
+                        {loop="$options.brand"}
+                        {if="empty($options.brand)"}
+                          <option value="NULL">Sem marca</option>
+                          {else}
+                          <option value="{$value.id_brand}">{$value.name_brand} </option>
+                          {/if}
+                        
                         {/loop}
-                     
+                        {if="!empty($options.brand)"}
+                        <option value="NULL">Sem marca</option>
+                        {/if}
+
                       </select>
                     </div>
                     
@@ -59,14 +64,17 @@
                       <label for="type">Tipo</label>
                       <select class="form-control" name="id_type" id="type">
 
-                          {if="!empty($product.id_type)"}
-                          <option value="{$product.id_type }">{$k = $product.id_type - 1}{$type.$k.name_type} </option>
-                          {else}
+                        {loop="$options.type"}
+                        {if="empty($options.type)"}
                           <option value="NULL">Sem tipo</option>
+                          {else}
+                          <option value="{$value.id_type}">{$value.name_type} </option>
                           {/if}
-                        {loop="$type"}
-                        <option value="{$value.id_type}">{$value.name_type}</option>                    
+                        
                         {/loop}
+                        {if="!empty($options.type)"}
+                        <option value="NULL">Sem tipo</option>
+                        {/if}
                      
                       </select>
                     </div>

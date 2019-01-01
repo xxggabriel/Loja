@@ -127,7 +127,7 @@ $app->group('/admin', function() use($app){
 
         $app->get('/', function() {
             Admin::verifyLoginAdmin();
-            // print_r(Admin::listAllProduct());exit;
+            
             $page = new PageAdmin();
             $page->setTpl("products",[
                 "product" => Admin::listAllProduct(),
@@ -154,22 +154,18 @@ $app->group('/admin', function() use($app){
             $model = new Model();
             $model->setData(Admin::listProduct($id_product));
     
-            $providers = new Model();
-            $providers->setData(Admin::listAllProviders());
-    
-            $brands = new Model();
-            $brands->setData(Admin::listAllBrand());
-            $types = new Model();
-            $types->setData(Admin::listAllType());
-            
-            // var_dump($providers->getValues());exit;
+            $admin = new Admin();
+
             $page = new PageAdmin();
+
             $page->setTpl("product-update",[
         
                 "product" => $model->getValues(),
-                "provider" => $providers->getValues(),
-                "brand" => $brands->getValues(),
-                "type"=> $types->getValues()
+                "options" => [
+                    "provider" => $admin->listOptionsProviders(),
+                    "brand" =>$admin->listOptionsBrands(),
+                    "type" => $admin->listOptionsTypes()
+                    ]
     
             ]);
     
@@ -177,7 +173,7 @@ $app->group('/admin', function() use($app){
 
         $app->post("/:id_product", function($id_product){
             Admin::verifyLoginAdmin();
-            // var_dump($_POST);exit;
+
             Admin::updateProductAdmin($_POST,$id_product);
     
         });

@@ -52,7 +52,6 @@
                         <td><?php echo htmlspecialchars( $value1["cnpj"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                         <td>
                           <a href="/admin/provider/<?php echo htmlspecialchars( $value1["id_provider"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                          <a href="/admin/provider/sample/<?php echo htmlspecialchars( $value1["id_provider"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-default btn-xs"><i class="fa fa-edit"></i>Amostra Do Produto </a>
                           <a href="/admin/provider/<?php echo htmlspecialchars( $value1["id_provider"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
                         </td>
                       </tr>

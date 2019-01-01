@@ -269,7 +269,48 @@ class Admin extends User{
          
     }
 
+    public function listOptionsProviders(){
+        $results = $this->listAllProviders();
+        $provider = [];
+        foreach ($results as $key) {
+            
+            $result = [0 => [
+                "id_provider" => $key['id_provider'],
+                "name_provider" => $key['name_provider']
+            ]];
+            $provider = array_merge($provider, $result);
+        }
+        return $provider;
+        
+    }
 
+    public function listOptionsBrands(){
+        $results = $this->listAllBrand();
+        $brand = [];
+        foreach ($results as $key) {
+            
+            $result = [0 => [
+                "id_brand" => $key['id_brand'],
+                "name_brand" => $key['name_brand']
+            ]];
+            $brand = array_merge($brand, $result);
+        }
+        return $brand;
+    }
+
+    public function listOptionsTypes(){
+        $results = $this->listAllType();
+        $type = [];
+        foreach ($results as $key) {
+            
+            $result = [0 => [
+                "id_type" => $key['id_type'],
+                "name_type" => $key['name_type']
+            ]];
+            $type = array_merge($type, $result);
+        }
+        return $type;
+    }
 
     // GETs and SETs
 
