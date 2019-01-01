@@ -208,8 +208,7 @@ class Admin extends User{
 
     public static function listAllProviders(){
         $provider = new Provider();
-        $result = $provider->selectAllProvider();
-        return $result;
+        return $provider->selectAllProvider();
     }
 
     public static function listBrand($id_brand){

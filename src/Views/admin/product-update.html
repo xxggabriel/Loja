@@ -32,10 +32,11 @@
                           {else}
                           <option value="{$product.id_provider}">{$k = $product.id_provider - 1}{$provider.$k.name_provider} </option>
                           {/if}
+                        
                         {loop="$provider"}
-                        <option value="{$value.id_provider}">{$value.name_provider}</option>                    
+                        <option value='{if="!empty($provider)"}{$value.id_provider}{else}NULL{/if}'>{if="!empty($provider)"}{$value.name_provider}{else}Sem fornecedor{/if}</option>                    
                         {/loop}
-                     
+                        
                       </select>
                     </div>
 
