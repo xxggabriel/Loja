@@ -73,7 +73,7 @@ class Admin extends User{
         exit;
     }
 
-    public static function createProviderAdmin($data = array(), $route = "/admin/providers"){
+    public static function createProviderAdmin($data = array(), $route = "/admin/provider"){
 
         $provider = new Provider();
         $provider->createProvider($data);
@@ -131,7 +131,7 @@ class Admin extends User{
         exit;
     }
 
-    public static function updateProviderAdmin($data = array(), $id_provider, $route = "/admin/providers"){
+    public static function updateProviderAdmin($data = array(), $id_provider, $route = "/admin/provider"){
 
         $provider = new Provider();
         $provider->updateProvider($data, $id_provider);
@@ -154,7 +154,7 @@ class Admin extends User{
         exit;
     }
 
-    public static function deleteProviderAdmin($id_provider, $route = "/admin/providers"){
+    public static function deleteProviderAdmin($id_provider, $route = "/admin/provider"){
         $provider = new Provider();
         $provider->deleteProvider($id_provider);
         header("Location: $route");

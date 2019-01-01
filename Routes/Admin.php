@@ -239,53 +239,59 @@ $app->group('/admin', function() use($app){
 
 
     // Provider
-    $app->get('/providers', function() {
-        Admin::verifyLoginAdmin();
-        $model = new Model();
-        $model->setData(Admin::listAllProviders());
+    $app->group('/provider', function() use($app){
+        $app->get('/', function() {
+            Admin::verifyLoginAdmin();
+            $model = new Model();
+            $model->setData(Admin::listAllProviders());
+    
+            $page = new PageAdmin();
+            $page->setTpl("providers",[
+                "provider" => $model->getValues()
+            ]);
+        });
+    
+    
+        $app->get('/create', function() {
+            Admin::verifyLoginAdmin();
+    
+            $page = new PageAdmin();
+            $page->setTpl("provider-create");
+        });
+    
+        $app->post('/create', function() {
+            Admin::verifyLoginAdmin();
 
-        $page = new PageAdmin();
-        $page->setTpl("providers",[
-            "provider" => $model->getValues()
-        ]);
+            Admin::createProviderAdmin($_POST);
+        });
+    
+    
+        $app->get('/:id_provider', function($id_provider) {
+            Admin::verifyLoginAdmin();
+    
+            $model = new Model();
+            $model->setData(Admin::listProvider($id_provider));
+    
+            $page = new PageAdmin();
+            $page->setTpl("provider-update",[
+                "provider" => $model->getValues()
+            ]);
+        });
+
+        $app->post('/:id_provider', function($id_provider) {
+            Admin::verifyLoginAdmin();
+            Admin::updateProviderAdmin($_POST, $id_provider);
+        });
+        
+        $app->get('/:id_provider/delete', function($id_provider) {
+            Admin::verifyLoginAdmin();
+            Admin::deleteProviderAdmin($id_provider);
+        });
+    
+    
+        
     });
-
-
-    $app->get('/provider/create', function() {
-        Admin::verifyLoginAdmin();
-
-        $page = new PageAdmin();
-        $page->setTpl("provider-create");
-    });
-
-    $app->post('/provider/create', function() {
-        Admin::verifyLoginAdmin();
-
-        Admin::createProviderAdmin($_POST);
-    });
-
-
-    $app->get('/provider/:id_provider', function($id_provider) {
-        Admin::verifyLoginAdmin();
-
-        $model = new Model();
-        $model->setData(Admin::listProvider($id_provider));
-
-        $page = new PageAdmin();
-        $page->setTpl("provider-update",[
-            "provider" => $model->getValues()
-        ]);
-    });
-    $app->get('/provider/:id_provider/delete', function($id_provider) {
-        Admin::verifyLoginAdmin();
-        Admin::deleteProviderAdmin($id_provider);
-    });
-
-
-    $app->post('/provider/:id_provider', function($id_provider) {
-        Admin::verifyLoginAdmin();
-        Admin::updateProviderAdmin($_POST, $id_provider);
-    });
+    
     // end Provider
 
 
