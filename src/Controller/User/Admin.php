@@ -21,7 +21,7 @@ class Admin extends User{
 
         if(empty($_SESSION["logged_admin"])){
             $_SESSION['route_login'] = $route;
-            header("Location: /login/admin");
+            header("Location: /admin/login");
             exit;
         }
     }
@@ -35,7 +35,7 @@ class Admin extends User{
     public static function logoutAdmin($redirect = true){
         session_destroy();
         if($redirect){
-            header("Location: /login/admin");
+            header("Location: /admin/login");
             exit;
         }
     }
