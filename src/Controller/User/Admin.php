@@ -48,7 +48,7 @@ class Admin extends User{
         exit;
     }
     
-    public static function createProductSampleAdmin($data = array(), $route = "/admin/products"){
+    public static function createProductSampleAdmin($data = array(), $route = "/admin/product"){
 
         $product = new Product();
         $product->createProductSample($data);
@@ -57,7 +57,7 @@ class Admin extends User{
 
     }
 
-    public static function updateProductSampleAdmin($data = array(), $id_product, $route = "/admin/products"){
+    public static function updateProductSampleAdmin($data = array(), $id_product, $route = "/admin/product"){
 
         $product = new Product();
         $product->updateProductSample($data, $id_product);
@@ -66,7 +66,7 @@ class Admin extends User{
 
     } 
 
-    public static function createProductAdmn($data = array(), $route = "/admin/products"){
+    public static function createProductAdmn($data = array(), $route = "/admin/product"){
         $product = new Product();
         $product->createProduct($data);
         header("Location: $route");
@@ -124,7 +124,7 @@ class Admin extends User{
         exit;
     }
 
-    public static function updateProductAdmin($data = array(),$id_product, $route = "/admin/products"){
+    public static function updateProductAdmin($data = array(),$id_product, $route = "/admin/product"){
         $product = new Product();
         $product->updateProduct($data,$id_product);
         header("Location: $route");
@@ -147,7 +147,7 @@ class Admin extends User{
         exit;
     }
 
-    public static function deleteAdminProduct($id_product, $route = "/admin/products"){
+    public static function deleteAdminProduct($id_product, $route = "/admin/product"){
         $product = new Product();
         $product->deleteProduct($id_product);
         header("Location: $route");

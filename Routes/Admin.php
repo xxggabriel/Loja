@@ -43,199 +43,198 @@ $app->group('/admin', function() use($app){
         
     });
 
-
-    // Users
-    $app->get('/users', function() {
-        Admin::verifyLoginAdmin();
-        $page = new PageAdmin();
-
-        $page->setTpl("users",[
-            "users" => Admin::listAllUser()
-        ]);
-    });
-
-    $app->get('/users/create', function() {
-        Admin::verifyLoginAdmin();
+    $app->group('/users', function() use($app){
+        // Users
+        $app->get('/', function() {
+            Admin::verifyLoginAdmin();
+            $page = new PageAdmin();
     
-        $page = new PageAdmin();
-
-        $page->setTpl("user-create");
-
-    });
-
-    $app->post('/users/create', function() {
-        Admin::verifyLoginAdmin();
+            $page->setTpl("user",[
+                "users" => Admin::listAllUser()
+            ]);
+        });
+    
+        $app->get('/create', function() {
+            Admin::verifyLoginAdmin();
         
-        Admin::createUserAdmin($_POST);
-    });
-
-    $app->get('/users/:id_user/delete', function($id_user) {
-        Admin::verifyLoginAdmin();
-        Admin::deleteAdminUser($id_user);
-    });
-
-    $app->get('/users/:id_user', function($id_user) {
-        Admin::verifyLoginAdmin();
+            $page = new PageAdmin();
     
-        $page = new PageAdmin();
-        $result = Admin::listUser($id_user);
-
-        $page->setTpl("user-update",["user" =>[
-            "id_user" => $result["id_user"],
-            "name_user" => $result["name_user"],
-            "login" => $result["login"],
-            "email" => $result["email"],
-            "phone" => $result["phone"],
-            "status" => $result["status"]
-        ]]);
-    });
-
-    $app->post('/users/:id_user', function($id_user) {
-        Admin::verifyLoginAdmin();
-        if(!empty($_POST["status"]) || !$_POST["status"] == 3){
-            $_POST["status"] = 2;
-        }
-        Admin::updateUserAdmin($_POST,$id_user);
-    });
-
-
-    $app->get('/users/:id_user/password', function($id_user) {
-        Admin::verifyLoginAdmin();
+            $page->setTpl("user-create");
     
-        $page = new PageAdmin();
-
-        $page->setTpl("user-password",["user" => [ 
-            "id_user" => $id_user
-        ]]);
-
+        });
+    
+        $app->post('/create', function() {
+            Admin::verifyLoginAdmin();
+            
+            Admin::createUserAdmin($_POST);
+        });
+    
+        $app->get('/:id_user/delete', function($id_user) {
+            Admin::verifyLoginAdmin();
+            Admin::deleteAdminUser($id_user);
+        });
+    
+        $app->get('/:id_user', function($id_user) {
+            Admin::verifyLoginAdmin();
+        
+            $page = new PageAdmin();
+            $result = Admin::listUser($id_user);
+    
+            $page->setTpl("user-update",["user" =>[
+                "id_user" => $result["id_user"],
+                "name_user" => $result["name_user"],
+                "login" => $result["login"],
+                "email" => $result["email"],
+                "phone" => $result["phone"],
+                "status" => $result["status"]
+            ]]);
+        });
+    
+        $app->post('/:id_user', function($id_user) {
+            Admin::verifyLoginAdmin();
+            if(!empty($_POST["status"]) || !$_POST["status"] == 3){
+                $_POST["status"] = 2;
+            }
+            Admin::updateUserAdmin($_POST,$id_user);
+        });
+    
+    
+        $app->get('/:id_user/password', function($id_user) {
+            Admin::verifyLoginAdmin();
+        
+            $page = new PageAdmin();
+    
+            $page->setTpl("user-password",["user" => [ 
+                "id_user" => $id_user
+            ]]);
+    
+        });
+    
+        $app->post('/:id_user/password', function($id_user) {
+            Admin::verifyLoginAdmin();
+            if(!isset($_POST["status"]) || !$_POST["status"] == 3){
+                $_POST["status"] = 2;
+            }
+            Admin::updateAdminPassword($_POST["password"],$id_user);
+        });
+        // end Users
     });
-
-    $app->post('/users/:id_user/password', function($id_user) {
-        Admin::verifyLoginAdmin();
-        if(!isset($_POST["status"]) || !$_POST["status"] == 3){
-            $_POST["status"] = 2;
-        }
-        Admin::updateAdminPassword($_POST["password"],$id_user);
-    });
-    // end Users
+    
 
     // Products
-    $app->get('/products', function() {
-        Admin::verifyLoginAdmin();
-        // print_r(Admin::listAllProduct());exit;
-        $page = new PageAdmin();
-        $page->setTpl("products",[
-            "product" => Admin::listAllProduct(),
-            "brand" => Admin::listAllBrand()
-        ]);
-    });
 
-    $app->get('/product/create', function() {
-        Admin::verifyLoginAdmin();
+    $app->group('/product', function() use($app){
 
-        $page = new PageAdmin();
-        $page->setTpl("product-create");
-    });
-
-    $app->post("/product/create", function(){
-        Admin::verifyLoginAdmin();
-
-        Admin::createProductAdmn($_POST);
-    });
-
-    $app->get("/product/:id_product", function($id_product){
-        Admin::verifyLoginAdmin();
-
-        $product = Admin::listProduct($id_product);
-        $type =Admin::listType($product["id_type"]);
-        $brand = Admin::listBrand($product["id_brand"]);
-        $provider = Admin::listProvider($product["id_provider"]);
-        
-        
-        $model = new Model();
-        $model->setData($product);
-
-        $providers = new Model();
-        $providers->setData(Admin::listAllProviders());
-
-        $brands = new Model();
-        $brands->setData(Admin::listAllBrand());
-
-        $types = new Model();
-        $types->setData(Admin::listAllType());
-        
-        // var_dump($model->getValues());exit;
-        $page = new PageAdmin();
-        $page->setTpl("product-update",[
+        $app->get('/', function() {
+            Admin::verifyLoginAdmin();
+            // print_r(Admin::listAllProduct());exit;
+            $page = new PageAdmin();
+            $page->setTpl("products",[
+                "product" => Admin::listAllProduct(),
+                "brand" => Admin::listAllBrand()
+            ]);
+        });
     
-            "product" => $model->getValues(),
-            "provider" => $providers->getValues(),
-            "brand" => $brands->getValues(),
-            "type"=> $types->getValues()
-
-        ]);
-
-    });
-
-    $app->post("/product/:id_product", function($id_product){
-        Admin::verifyLoginAdmin();
-        // var_dump($_POST);exit;
-        Admin::updateProductAdmin($_POST,$id_product);
-
-    });
-
-    $app->get("/product/sample/:id_product", function($id_product){
-        Admin::verifyLoginAdmin();
-        $result = Admin::listProductSample($id_product);
-
-        $model = new Model();
-        $model->setData($result);
-
-        $page = new PageAdmin();
-        if(empty($model->getValues())){
+        $app->get('/create', function() {
+            Admin::verifyLoginAdmin();
+    
+            $page = new PageAdmin();
+            $page->setTpl("product-create");
+        });
+    
+        $app->post("/create", function(){
+            Admin::verifyLoginAdmin();
+    
+            Admin::createProductAdmn($_POST);
+        });
+    
+        $app->get("/:id_product", function($id_product){
+            Admin::verifyLoginAdmin();
+          
+            $model = new Model();
+            $model->setData(Admin::listProduct($id_product));
+    
+            $providers = new Model();
+            $providers->setData(Admin::listAllProviders());
+    
+            $brands = new Model();
+            $brands->setData(Admin::listAllBrand());
+            $types = new Model();
+            $types->setData(Admin::listAllType());
             
-            $page->setTpl("product-update-sample",[
-                "product" => [
-                    "id_product" => $id_product
-                ]
-            ]);
-        } else{
-            
-            $page->setTpl("product-update-sample",[
-                "product" => $model->getValues()
-            ]);
-        }
-
-            
-    });
-
-    $app->post("/product/sample/:id_product", function($id_product){
+            // var_dump($providers->getValues());exit;
+            $page = new PageAdmin();
+            $page->setTpl("product-update",[
         
-        if(empty(Admin::listProductSample($id_product))){
+                "product" => $model->getValues(),
+                "provider" => $providers->getValues(),
+                "brand" => $brands->getValues(),
+                "type"=> $types->getValues()
+    
+            ]);
+    
+        });
 
-            $result = Admin::savePhoto($_FILES["photo"]);
-            $_POST["id_product"] = $id_product;
-            $_POST["photo"] = $result;
+        $app->post("/:id_product", function($id_product){
+            Admin::verifyLoginAdmin();
+            // var_dump($_POST);exit;
+            Admin::updateProductAdmin($_POST,$id_product);
+    
+        });
+    
+        $app->get("/sample/:id_product", function($id_product){
+            Admin::verifyLoginAdmin();
+            $result = Admin::listProductSample($id_product);
+    
+            $model = new Model();
+            $model->setData($result);
+    
+            $page = new PageAdmin();
+            if(empty($model->getValues())){
+                
+                $page->setTpl("product-update-sample",[
+                    "product" => [
+                        "id_product" => $id_product
+                    ]
+                ]);
+            } else{
+                
+                $page->setTpl("product-update-sample",[
+                    "product" => $model->getValues()
+                ]);
+            }
+    
+                
+        });
+    
+        $app->post("/sample/:id_product", function($id_product){
             
-            Admin::createProductSampleAdmin($_POST);
-        }else {
-            $result = Admin::savePhoto($_FILES["photo"]);
-            $_POST["id_product"] = $id_product;
-            $_POST["photo"] = $result;
-            
-            Admin::updateProductSampleAdmin($_POST, $id_product);
-        }
-
-
-
+            if(empty(Admin::listProductSample($id_product))){
+    
+                $result = Admin::savePhoto($_FILES["photo"]);
+                $_POST["id_product"] = $id_product;
+                $_POST["photo"] = $result;
+                
+                Admin::createProductSampleAdmin($_POST);
+            }else {
+                $result = Admin::savePhoto($_FILES["photo"]);
+                $_POST["id_product"] = $id_product;
+                $_POST["photo"] = $result;
+                
+                Admin::updateProductSampleAdmin($_POST, $id_product);
+            }
+    
+    
+    
+        });
+    
+        $app->get("/:id_product/delete", function($id_product){
+            Admin::verifyLoginAdmin();
+            Admin::deleteAdminProduct($id_product);
+        });
     });
 
-    $app->get("/product/:id_product/delete", function($id_product){
-        Admin::verifyLoginAdmin();
-        Admin::deleteAdminProduct($id_product);
-    });
-
-
+    
     // end Products
 
 
