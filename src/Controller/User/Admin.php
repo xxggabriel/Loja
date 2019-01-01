@@ -82,14 +82,14 @@ class Admin extends User{
 
     }
 
-    public static function createBrandAdmin($data = array(), $route = "/admin/brands"){
+    public static function createBrandAdmin($data = array(), $route = "/admin/brand"){
         $brand = new Brand();
         $brand->createBrand($data);
         header("Location: $route");
         exit;
     }
 
-    public static function createTypeAdmin($data = array(), $route = "/admin/types"){
+    public static function createTypeAdmin($data = array(), $route = "/admin/type"){
         $type = new Type();
         $type->createType($data);
         header("Location: $route");
@@ -103,14 +103,14 @@ class Admin extends User{
         exit;
     }
 
-    public static function updateBrandAdmin($data = array(),$id_brand, $route = "/admin/brands"){
+    public static function updateBrandAdmin($data = array(),$id_brand, $route = "/admin/brand"){
         $brand = new Brand();
         $brand->updateBrand($id_brand,$data);
         header("Location: $route");
         exit;
     }
 
-    public static function updateTypeAdmin($data = array(),$id_type, $route = "/admin/types"){
+    public static function updateTypeAdmin($data = array(),$id_type, $route = "/admin/type"){
         $type = new Type();
         $type->updatetype($data,$id_type);
         header("Location: $route");
@@ -161,14 +161,14 @@ class Admin extends User{
         exit;
     } 
 
-    public static function deleteBrandAdmin($id_brand, $route = "/admin/brands"){
+    public static function deleteBrandAdmin($id_brand, $route = "/admin/brand"){
         $brand = new Brand();
         $brand->deleteBrand($id_brand);
         header("location: $route");
         exit;
     }
 
-    public static function deleteTypeAdmin($id_type, $route = "/admin/types"){
+    public static function deleteTypeAdmin($id_type, $route = "/admin/type"){
         $type = new Type();
         $type->deletetype($id_type);
         header("location: $route");

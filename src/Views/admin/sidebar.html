@@ -36,8 +36,8 @@
             <li ><a href="/admin/users"><i class="glyphicon glyphicon-user"></i> <span>Usuarios</span></a></li>
             <li ><a href="/admin/product"><i class="glyphicon glyphicon-tag"></i> <span>Produtos</span></a></li>
             <li><a href="/admin/provider"><i class="glyphicon glyphicon-random"></i> <span>Fornecedores</span></a></li>
-            <li><a href="/admin/brands"><i class="glyphicon glyphicon-book"></i> <span>Marcas</span></a></li>
-            <li><a href="/admin/types"><i class="glyphicon glyphicon-bookmark"></i> <span>Tipos de Produtos</span></a></li>
+            <li><a href="/admin/brand"><i class="glyphicon glyphicon-book"></i> <span>Marcas</span></a></li>
+            <li><a href="/admin/type"><i class="glyphicon glyphicon-bookmark"></i> <span>Tipos de Produtos</span></a></li>
           </ul>
           <!-- /.sidebar-menu -->
         </section>

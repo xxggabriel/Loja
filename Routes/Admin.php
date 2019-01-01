@@ -296,42 +296,45 @@ $app->group('/admin', function() use($app){
 
 
     // Brans
-    $app->get('/brands', function() {
-        Admin::verifyLoginAdmin();
-        $page = new PageAdmin();
-        $page->setTpl("brands",[
-            "brand" => Admin::listAllBrand()
-        ]);
+    $app->group('/brand', function() use($app){
+        $app->get('/', function() {
+            Admin::verifyLoginAdmin();
+            $page = new PageAdmin();
+            $page->setTpl("brands",[
+                "brand" => Admin::listAllBrand()
+            ]);
+        });
+    
+        $app->get('/create', function() {
+            Admin::verifyLoginAdmin();
+            $page = new PageAdmin();
+            $page->setTpl("brand-create");
+        });
+    
+        $app->post('/create', function() {
+            Admin::verifyLoginAdmin();
+            Admin::createBrandAdmin($_POST);
+        });
+    
+        $app->get('/:id_brand/delete', function($id_brand) {
+            Admin::verifyLoginAdmin();
+            Admin::deleteBrandAdmin($id_brand);
+        });
+    
+        $app->get('/:id_brand', function($id_brand) {
+            Admin::verifyLoginAdmin();
+            $page = new PageAdmin();
+            $page->setTpl("brand-update",[
+                "brand" => Admin::listBrand($id_brand)
+            ]);
+        });
+    
+        $app->post('/:id_brand', function($id_brand) {
+            Admin::verifyLoginAdmin();
+            Admin::updateBrandAdmin($_POST,$id_brand);
+        });
     });
 
-    $app->get('/brand/create', function() {
-        Admin::verifyLoginAdmin();
-        $page = new PageAdmin();
-        $page->setTpl("brand-create");
-    });
-
-    $app->post('/brand/create', function() {
-        Admin::verifyLoginAdmin();
-        Admin::createBrandAdmin($_POST);
-    });
-
-    $app->get('/brand/:id_brand/delete', function($id_brand) {
-        Admin::verifyLoginAdmin();
-        Admin::deleteBrandAdmin($id_brand);
-    });
-
-    $app->get('/brand/:id_brand', function($id_brand) {
-        Admin::verifyLoginAdmin();
-        $page = new PageAdmin();
-        $page->setTpl("brand-update",[
-            "brand" => Admin::listBrand($id_brand)
-        ]);
-    });
-
-    $app->post('/brand/:id_brand', function($id_brand) {
-        Admin::verifyLoginAdmin();
-        Admin::updateBrandAdmin($_POST,$id_brand);
-    });
 
 
     // Type
