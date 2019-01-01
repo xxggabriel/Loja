@@ -334,49 +334,52 @@ $app->group('/admin', function() use($app){
             Admin::updateBrandAdmin($_POST,$id_brand);
         });
     });
-
+    //end Brand
 
 
     // Type
-    $app->get('/types', function() {
-        Admin::verifyLoginAdmin();
-        $page = new PageAdmin();
-        $page->setTpl("types",[
-            "type" => Admin::listAllType()
-        ]);
+    $app->group('/type', function() use($app){
+
+        $app->get('/', function() {
+            Admin::verifyLoginAdmin();
+            $page = new PageAdmin();
+            $page->setTpl("types",[
+                "type" => Admin::listAllType()
+            ]);
+        });
+    
+        $app->get('/create', function() {
+            Admin::verifyLoginAdmin();
+            $page = new PageAdmin();
+            $page->setTpl("type-create");
+        });
+    
+        $app->post('/create', function() {
+            Admin::verifyLoginAdmin();
+            Admin::createTypeAdmin($_POST);
+        });
+    
+        $app->get('/:id_type/delete', function($id_type){
+            Admin::verifyLoginAdmin();
+            Admin::deleteTypeAdmin($id_type);
+        });
+    
+    
+        $app->get('/:id_type', function($id_type) {
+            Admin::verifyLoginAdmin();
+            $page = new PageAdmin();
+            $page->setTpl("type-update",[
+                "type" => Admin::listType($id_type)
+            ]);
+        });
+    
+        $app->post('/:id_type', function($id_type) {
+            Admin::verifyLoginAdmin();
+            Admin::updateTypeAdmin($id_type, $_POST);
+        });
     });
-
-    $app->get('/type/create', function() {
-        Admin::verifyLoginAdmin();
-        $page = new PageAdmin();
-        $page->setTpl("type-create");
+    
     });
-
-    $app->post('/type/create', function() {
-        Admin::verifyLoginAdmin();
-        Admin::createTypeAdmin($_POST);
-    });
-
-    $app->get('/type/:id_type/delete', function($id_type){
-        Admin::verifyLoginAdmin();
-        Admin::deleteTypeAdmin($id_type);
-    });
-
-
-    $app->get('/type/:id_type', function($id_type) {
-        Admin::verifyLoginAdmin();
-        $page = new PageAdmin();
-        $page->setTpl("type-update",[
-            "type" => Admin::listType($id_type)
-        ]);
-    });
-
-    $app->post('/type/:id_type', function($id_type) {
-        Admin::verifyLoginAdmin();
-        Admin::updateTypeAdmin($id_type, $_POST);
-    });
-});
-
 
 
 // end Type
