@@ -59,4 +59,15 @@ class Sql {
 		$stmt->execute();
 		return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 	}
+
+	public function backup()
+	{
+		exec("mysqldump --routines -u ".Sql::USERNAME." -p". Sql::PASSWORD." ". Sql::DBNAME ."> ". $_SERVER["DOCUMENT_ROOT"] . "/src/Model/DB/Backups/backup-".date("d-m-Y_H:i:s").".sql");
+		
+		
+		exec("git add ".$_SERVER["DOCUMENT_ROOT"] . "/src/Model/DB/Backups/*");
+		exec("git commit -m 'Backup do banco de dados '". date("Y/m/d H:i:s"));
+		exec("git push origin master");
+		
+	}	
 }
