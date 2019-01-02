@@ -8,25 +8,13 @@ use Model\Model;
 
 
 $app->group('/admin', function() use($app){
-    
-    $app->get('/', function() {
-
-        Admin::verifyLoginAdmin("/admin");
-        $page = new PageAdmin();
-        $admin = new Admin();
-        $page->setTpl("index",[
-            "admin" => $admin->listAdmin()
-        ]);
-        
-    });
-
     $app->get('/login', function() {
+        
         Admin::logoutAdmin(false);
         $page = new PageAdmin([
             "header" => false,
             "footer" => false
         ]);
-        
         $page->setTpl("login",[],false);
         
     });
@@ -36,9 +24,22 @@ $app->group('/admin', function() use($app){
         $admin->loginAdmin($_POST);
     
     });
+    
+    $app->get('/', function() {
+        Admin::verifyLoginAdmin();
+        
+        $page = new PageAdmin();
+        $admin = new Admin();
+        $page->setTpl("index",[
+            "admin" => $admin->listAdmin()
+        ]);
+        
+    });
+    
+
 
     $app->get('/logout', function() {
-        Admin::verifyLoginAdmin();
+        
         User::logoutUser();
         
     });
@@ -47,6 +48,7 @@ $app->group('/admin', function() use($app){
         // Users
         $app->get('/', function() {
             Admin::verifyLoginAdmin();
+            
             $page = new PageAdmin();
     
             $page->setTpl("user",[
@@ -124,10 +126,10 @@ $app->group('/admin', function() use($app){
     // Products
 
     $app->group('/product', function() use($app){
-
         $app->get('/', function() {
-            Admin::verifyLoginAdmin();
+            Admin::verifyLoginAdmin(); 
             
+
             $page = new PageAdmin();
             $page->setTpl("products",[
                 "product" => Admin::listAllProduct(),
@@ -204,7 +206,7 @@ $app->group('/admin', function() use($app){
         });
     
         $app->post("/sample/:id_product", function($id_product){
-            
+            Admin::verifyLoginAdmin();
             if(empty(Admin::listProductSample($id_product))){
     
                 $result = Admin::savePhoto($_FILES["photo"]);
@@ -249,22 +251,22 @@ $app->group('/admin', function() use($app){
     
     
         $app->get('/create', function() {
+            
             Admin::verifyLoginAdmin();
-    
             $page = new PageAdmin();
             $page->setTpl("provider-create");
         });
     
         $app->post('/create', function() {
+            
             Admin::verifyLoginAdmin();
-
             Admin::createProviderAdmin($_POST);
         });
     
     
         $app->get('/:id_provider', function($id_provider) {
+            
             Admin::verifyLoginAdmin();
-    
             $model = new Model();
             $model->setData(Admin::listProvider($id_provider));
     
@@ -334,10 +336,11 @@ $app->group('/admin', function() use($app){
 
 
     // Type
-    $app->group('/type  ', function() use($app){
+    $app->group('/type', function() use($app){
 
         $app->get('/', function() {
             Admin::verifyLoginAdmin();
+            
             $page = new PageAdmin();
             $page->setTpl("types",[
                 "type" => Admin::listAllType()

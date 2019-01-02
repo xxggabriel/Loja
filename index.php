@@ -12,7 +12,6 @@ $app->config('debug', true);
 // exit;
 // Fazendo Require das rotas
 require_once("Routes/Web.php");
-require_once("Routes/Product.php");
 require_once("Routes/Account.php");
 require_once("Routes/Admin.php");
 

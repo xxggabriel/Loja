@@ -17,13 +17,14 @@ class Admin extends User{
     private $email;
     private $photo;
 
-    public function verifyLoginAdmin($route = NULL){
-
-        if(empty($_SESSION["logged_admin"])){
-            $_SESSION['route_login'] = $route;
+    public function verifyLoginAdmin(){ 
+        if($_SERVER['REQUEST_URI'] === '/admin/login'){
+            
+        }else if(empty($_SESSION["logged_admin"])){
             header("Location: /admin/login");
             exit;
         }
+        
     }
 
     public function loginAdmin($data = array()){
