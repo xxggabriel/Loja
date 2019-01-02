@@ -144,6 +144,17 @@ class Product extends Crud{
 
     }
 
+    public function listCategory($id_type = NULL){
+
+        if(isset($id_type)){
+
+            return $this->read("tb_type", "*","id_type = $id_type");
+        } else {
+            return $this->read("tb_type", "*");
+        }
+
+    }
+
     // GETs and SETs
 
     public function getId_provider()
